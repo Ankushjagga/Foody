@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{>links}}
+</head>
+<body>
+    {{>navbar}}
+<div class="container" id="container">
+	<div class="sign-up-container">
+		<form  method="POST" class="loginForm signinForm">
+			<h1>Create Account</h1>
+			
+			<input type="text" placeholder="Name" name="name" class="inp"/>
+			<input type="email" placeholder="Email" name="email" class="inp" />
+			<input type="password" placeholder="Password" name="password" class="inp"/>
+			<input type="password" placeholder="confirm Password" name="cpassword"  class="inp"/>
+			<input type="number" placeholder="phone no." name="phoneNumber"  class="inp"/>
+			<button class="btn ghostbtn">
+				register
+			</button>
+		</form>
+
+		<div class="details">
+			<h1>Welcome Back!</h1>
+			<p>To keep connected with us please <br>login with your personal info</p>
+			<button class="btn" id="signIn"><a href="/login">
+                login In
+            </a>
+        </button>
+		</div>
+	</div>
+	
+			
+			
+	
+</div>
+    {{>footer}}
+    
+</body>
+</html>

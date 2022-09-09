@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<body>
+   {{>navbar}}
+   <span class="link-rec">
+    <ol style="display: flex; margin:1rem; align-items:center"> 
+        <li ><a href="/" style="text-decoration:underline; margin-right:.3rem" class="hov">Home </a> / </li>
+        <li style="opacity: .6; margin-left:.3rem">Explore Categories</li>
+    </ol>
+</span>
+
+{{#if (isdefined category)}}
+<div class="menu">
+{{#each category}}
+<a href="/recipe/{{_id}}">
+<div class="box">
+
+<img src="/img/{{image}}" alt="{{name}}">
+<h4>{{name}}</h4>
+</div>
+</a>
+{{else}}
+
+<h1 style="text-align: center">Sorry , no item found 😟</h1>
+{{/each}}
+</div>
+
+{{/if}}
+
+
+
+{{>footer}} 
+      <script src="/js/indexScript.js"></script>
+
+</body>
+</html>

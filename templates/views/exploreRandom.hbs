@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<body>
+    {{>navbar}}
+    {{#if (isdefined recipe)}}
+
+    <div class="row">
+      <div class="cont-left">
+      <img src="/img/{{recipe.image}}"  alt="{{recipe.name}}" >
+    </div>
+    <div class="con-right">
+        <h1>{{recipe.name}}</h1>
+        <span><i class="fa-solid fa-tag"></i>  {{recipe.category}}</span>
+        <div class="instruct">
+             <h4><i class="fa-solid fa-utensils"></i> Cooking Instructions</h4>
+            <p> {{recipe.description}} </p>
+        </div>
+        <div class="ingredients">
+             <h4><i class="fa-solid fa-bowl-food"></i> Ingredients</h4>
+             <ul>
+                {{#each recipe.ingredients}}
+                <li>{{this}}</li>
+                <hr>
+                {{/each}}
+             </ul>
+        </div>
+    </div>
+</div>
+{{else}}
+    <p>no item found 😟</p>
+    {{/if}}
+    {{>footer}}
+      <script src="/js/indexScript.js"></script>
+
+</body>
+</html>

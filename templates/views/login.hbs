@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<body>
+    {{>navbar}}
+  <div class="container" id="container">
+
+	<div class="login-in-container">
+		<form method="POST" class="loginForm">
+			<h1>login in</h1>
+			
+			<input type="email" placeholder="Email" class="inp"  name="email"/>
+			<input type="password" placeholder="Password" class="inp"  name="password" />
+			<a href="#">Forgot your password?</a>
+			<button class="btn ghostbtn">
+				
+				
+				login In
+			</button>
+		</form>
+		<div class="details">
+			<h1>Hello, Friend!</h1>
+			<p>Enter your personal details <br>and start journey with us</p>
+			<button class="btn" id="signUp"><a href="/register">
+
+				register
+			</a>
+		</button>
+		</div>
+	</div>
+			
+			
+	
+</div>
+    {{>footer}}
+</body>
+</html>

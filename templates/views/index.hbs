@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   {{>links}}
+</head>
+<body>
+
+
+   {{>navbar}}
+
+   {{!-- main  --}}
+   <div class="main">
+      <h1> It is even better than<br>
+an expensive cookery book</h1>
+<p>Learn how to make your favorite restaurant’s dishes<br><br> and Submit Your Own Recipie here 😄</p>
+<span class="exp">
+
+
+
+<button class="btn" id="button"><a href="/exploreLatest"> Explore latest</a> </button>
+<button class="btn "><a href="/exploreRandom"> Show Random</a></button>
+</span>
+      
+    </div>
+    {{!-- categories  --}}
+<div class="categories latest-recipie">
+    <h1> <span class="rad"> Recipes By<span class="sp">  Category </span> </span></h1>
+
+</div>
+<div class="category">
+    {{#if ( isdefined categories) }} 
+    {{#each categories}}
+        <a href="/categories/{{name}}">
+     <div class="box" id="box-cate">
+        <img src="/img/{{image}}" alt="{{name}}">
+        <h4>{{name}}</h4>
+        
+      </div>
+        </a>
+      {{/each}}
+      {{/if}}
+      
+        
+      </div>
+</div>
+
+{{!-- latest Recipie --}}
+<div class="latest-recipie">
+
+    <h1> <span class="rad"> Latest<span class="sp">  Recipies </span> </span></h1>
+</div>
+<div class="menu">
+{{#if (isdefined food)}}
+{{#each food.latest}}
+<a href="/recipe/{{_id}}">
+     <div class="box">
+        <img src="/img/{{image}}" alt={{name}}>
+        <h4>{{name}}</h4>
+        
+      </div>
+</a>
+{{else}}
+<p>No items Found</p>
+{{/each}}
+{{/if}}
+
+   
+        
+      </div>
+</div>
+
+{{!-- burger recipies  --}}
+{{!-- <div class="latest-recipie">
+
+    <h1> <span class="rad"> Burger<span class="sp">  Recipies </span> </span></h1>
+</div>
+<div class="menu">
+{{#if food.burger.length }}
+{{#each food.burger}}
+<a href="/recipe/{{_id}}">
+     <div class="box">
+        <img src="/img/{{image}}" alt={{name}}>
+        <h4>{{name}}</h4>
+        
+      </div>
+</a>
+{{/each}}
+{{/if}}
+{{else}}
+<p>No items Found</p>
+{{/else}}
+   
+        
+      </div>
+</div> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- subscribe newsletter --}}
+<div class="subscribe">
+    <h4>Subscribe to our Newsletter</h4>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>Quasi quas soluta recusandae sunt, commodi consequatur.</p>
+    <button class="btn">Subscribe <i class="fa-solid fa-bell"></i></button>
+</div>
+
+{{!-- publish Recipie --}}
+<div class="latest-recipie">
+
+    <h1> <span class="rad"> Publish <span class="sp">Your</span>  Own<span class="sp">  Recipies </span> </span></h1>
+</div>
+<div class="publish">
+    <img src="/img/publish1.jpg" alt="publish">
+    <img src="/img/publish2.jpg" alt="publish">
+    <img src="/img/publish3.jpg" alt="publish">
+</div>
+<span class="pub-head"><h1>Publish Your Recipe For 🆓 Today </h1>
+<br>
+<p><em>Share Your Cooking Knowledge Today! 💯 </em></p>
+<button class="btn"><a href="/submitRecipe"> Submit Recipe</a>  <i class="fa-solid fa-up-right-from-square"></i></button>
+</span>
+   {{>footer}}
+      <script src="/js/indexScript.js"></script>
+
+</body>
+</html>

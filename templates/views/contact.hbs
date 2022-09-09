@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<body>
+    {{>navbar}}
+<section class="contact" id="contact">
+
+    <h1 class="heading"><span class="rad">
+
+        Get In <span class="sp">Touch
+        </span>
+        with us
+    </span>
+</h1>
+
+    <div class="row">
+
+        <div class="content">
+
+            <h3 class="title">contact info</h3>
+
+            <div class="info">
+                <h3> <a href="mailto:foody18@gmail.com">
+
+                        <i class="fas fa-envelope"></i>foody18@gmail.com </h3>
+                </a>
+                <h3> <a href="tel:98760xxxxx">
+                        <i class="fas fa-phone"></i>
+                        98760xxxxx
+                    </a>
+                </h3>
+
+                <h3>
+                    <a href="https://www.google.com/maps/place/Jagga+Book+Center/@30.1914532,74.5021976,17z/data=!3m1!4b1!4m5!3m4!1s0x3917172bce8a5227:0xb6dc4097ec6881d!8m2!3d30.1914532!4d74.5043863"
+                        target="_blank">
+
+                        <i class="fas fa-map-marker-alt"></i>  Punjab, india.
+                    </a>
+
+                </h3>
+            </div>
+
+        </div>
+
+        <form method="POST">
+
+            <input type="text" placeholder="name" class="box" name="name" required >
+            <input type="email" placeholder="email" class="box" name="email" required >
+            <textarea  id="" cols="30" rows="10" class="box message" placeholder="message" name="message" required></textarea>
+            <button type="submit" class="btn"> send <i class="fas fa-paper-plane"></i> </button>
+
+        </form>
+    </div>
+</section>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.5987784700237!2d74.50219761507292!3d30.191453181829136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3917172bce8a5227%3A0xb6dc4097ec6881d!2sJagga%20Book%20Center!5e0!3m2!1sen!2sin!4v1653230834868!5m2!1sen!2sin" width="1550" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+    {{>footer}}
+      <script src="/js/indexScript.js"></script>
+    
+</body>
+</html>

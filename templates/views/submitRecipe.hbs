@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<body>
+    {{>navbar}}
+    <div class="latest-recipie">
+
+    <h1> <span class="rad"> Submit Your<span class="sp">  Recipe </span> </span></h1>
+</div>
+
+<div class="alert-msg">
+    {{#if (isdefined infoSubmit)}}
+    {{infoSubmit}}
+    {{/if}}
+</div>
+<div class="alert-msg-error">
+    {{#if (isdefined infoErrors)}}
+{{#each infoErrors}}
+    {{message}}
+    {{/each}}
+    {{/if}}
+</div>
+<form method="POST" class="submit-form " enctype="multipart/form-data">
+    <label>Email: </label>
+    <input type="email" placeholder="enter your Email" name="email">
+    <label>Recipie Name: </label>
+    <input type="text" placeholder="enter Recipe Name" name="name">
+    <label>Description: </label>
+<textarea name="description" id="des" cols="20" rows="10">enter Description here .. 😄</textarea>
+<label>Ingridents:</label>
+<div class="ingridentlist">
+    <div class="ingridentdiv">
+
+
+    <input type="text" placeholder="example : onions" name="ingredients">
+    </div>
+</div>
+    <button class="btn ing-btn">+ Add Ingridents</button>
+    <label>Select category:</label>
+    <select name="category">
+    <option selected >Select Category</option>
+    <option value="burger">burger</option>
+    <option value="pizzas">pizzas</option>
+    <option value="beverage">beverage</option>
+    <option value="sweets">sweets</option>
+
+    </select>
+    </option>
+    <label for="image">Prdouct image:</label>
+    <input type="file" name="image">
+    <div class="buttons">
+
+<button type="submit" class="btn">Submit</button>
+<button type="reset" class="btn">Reset</button>
+    </div>
+
+
+</form>
+
+</div>
+    {{>footer}}
+    <script src="/js/script.js"></script>
+ 
+
+
+</body>
+</html>
