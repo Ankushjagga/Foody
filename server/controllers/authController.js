@@ -1,5 +1,5 @@
 require("../connection/db")
-const alert = require('alert')
+// const alert = require('alert')
 const Register = require("../models/register")
 const bcrypt = require("bcrypt")
  
@@ -43,7 +43,7 @@ const bcrypt = require("bcrypt")
     });
     await data.save();
     res.redirect("/")
- alert("Registration sucessfull 😄")
+//  alert("Registration sucessfull 😄")
   }
   else{
     
@@ -88,7 +88,7 @@ const bcrypt = require("bcrypt")
           });
 
           if(isMatch){
-            alert("Login sucessfull 😄")
+            // alert("Login sucessfull 😄")
 
             res.redirect('/')
           }
@@ -118,7 +118,7 @@ const bcrypt = require("bcrypt")
 res.clearCookie("jwt");
 
 console.log("logout sucessful");
-alert("Logout sucessfull 😄")
+// alert("Logout sucessfull 😄")
 
 
 await req.user.save();

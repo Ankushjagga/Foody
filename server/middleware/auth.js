@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const register =  require("../models/register");
-const alert =  require("alert")
+// const alert =  require("alert")
 const auth = async (req,res,next)=>{
 
 try {
@@ -16,7 +16,7 @@ try {
     next()
     
 } catch (error) {
-    alert("YOU NEED TO LOGIN FIRST 🆗")
+    // alert("YOU NEED TO LOGIN FIRST 🆗")
     res.redirect("login")
 }
 
