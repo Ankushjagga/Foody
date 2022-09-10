@@ -53,7 +53,7 @@ const bcrypt = require("bcrypt")
   
         
         } catch (error) {
-          res.status(500).send( error || "Something went wrong 😩" );
+          res.status(500).send( {message: error.message || "Something went wrong 😩"} );
         
         }
         }
