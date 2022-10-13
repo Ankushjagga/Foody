@@ -26,24 +26,24 @@
     {{/if}}
 </div>
 <form method="POST" class="submit-form " enctype="multipart/form-data">
-    <label>Email: </label>
-    <input type="email" placeholder="enter your Email" name="email">
-    <label>Recipie Name: </label>
-    <input type="text" placeholder="enter Recipe Name" name="name">
+    <label required >Email: </label>
+    <input type="email" placeholder="enter your Email" name="email" required />
+    <label required>Recipie Name: </label>
+    <input type="text" placeholder="enter Recipe Name" name="name" required />
     <label>Description: </label>
-<textarea name="description" id="des" cols="20" rows="10">enter Description here .. 😄</textarea>
+<textarea name="description" id="des" cols="20" rows="10" required>enter Description here .. 😄</textarea>
 <label>Ingridents:</label>
 <div class="ingridentlist">
     <div class="ingridentdiv">
 
 
-    <input type="text" placeholder="example : onions" name="ingredients">
+    <input type="text" placeholder="example : onions" name="ingredients" required >
     </div>
 </div>
     <button class="btn ing-btn">+ Add Ingridents</button>
     <label>Select category:</label>
     <select name="category">
-    <option selected >Select Category</option>
+    <option selected disabled >Select Category</option>
     <option value="burger">burger</option>
     <option value="pizzas">pizzas</option>
     <option value="beverage">beverage</option>
@@ -51,7 +51,7 @@
 
     </select>
     </option>
-    <label for="image">Prdouct image:</label>
+    <label for="image" aria-required="true">Prdouct image:</label>
     <input type="file" name="image">
     <div class="buttons">
 

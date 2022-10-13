@@ -8,14 +8,20 @@
 </head>
 <body>
     {{>navbar}}
+	<div class="alert-msg">
+    {{#if (isdefined show)}}
+    {{show}}
+    {{/if}}
+</div>
+	
   <div class="container" id="container">
 
 	<div class="login-in-container">
 		<form method="POST" class="loginForm">
 			<h1>login in</h1>
 			
-			<input type="email" placeholder="Email" class="inp"  name="email"/>
-			<input type="password" placeholder="Password" class="inp"  name="password" />
+			<input type="email" placeholder="Email" class="inp"  name="email" required/>
+			<input type="password" placeholder="Password" class="inp"  name="password" required />
 			<a href="#">Forgot your password?</a>
 			<button class="btn ghostbtn">
 				

@@ -2,7 +2,6 @@ require("../connection/db")
 const Category = require("../models/Category")
 const Recipe = require("../models/Recipe")
 const Contact = require("../models/contact")
-const alert = require('alert')
 
 // GET Homepage
 exports.homepage = async(req,res)=>{
@@ -15,7 +14,7 @@ exports.homepage = async(req,res)=>{
 
         res.render("index",{title:"homepage",categories,food})                 
     } catch (error) {
-        res.status(500).send({message: error.message||"Something went wrong 😩"})
+        res.status(500).send({message: error.message||"Something went wrong 😩"}) 
     }
 
 }
@@ -163,8 +162,8 @@ exports.submitRecipeonPost = async(req, res) => {
 
     res.redirect('/submitRecipe' );
   } catch (error) {
-    req.flash('infoErrors',error)
-
+    req.flash('infoErrors',error) 
+console.log(error);
     res.redirect('/submitRecipe' );
     
   }

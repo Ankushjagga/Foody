@@ -3,11 +3,11 @@ const mongoose = require("mongoose")
 const   recipeSchema =  mongoose.Schema({
     name:{
         type:String,
-        required: true
+        required: [true,"name field is required"]
     },
     description:{
         type:String,
-        required:true
+        required:[true ,"descrption field is required"]
     },
    
     // email: {
@@ -21,11 +21,11 @@ const   recipeSchema =  mongoose.Schema({
         category:{
             type:String,
             enum : ["burger","pizzas","sweets","beverage"],   
-            required: true
+            required: [true,"category is required"]
         },
         image:{
             type:String,
-            required: true
+            required: [true,"image  field is required"]
         }
       
     

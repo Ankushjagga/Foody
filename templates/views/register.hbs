@@ -9,6 +9,11 @@
 </head>
 <body>
     {{>navbar}}
+	<div class="alert-msg">
+    {{#if (isdefined tell)}}
+    {{tell}}
+    {{/if}}
+	</div>
 <div class="container" id="container">
 	<div class="sign-up-container">
 		<form  method="POST" class="loginForm signinForm">

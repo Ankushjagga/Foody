@@ -11,7 +11,7 @@ const contactSchema = mongoose.Schema({
     },
     message:{
         type:String,
-        required:[true,"this field is required"]
+        required:[true,"this field is required"]   
     }
 })
 

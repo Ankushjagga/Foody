@@ -6,7 +6,7 @@ const registerSchema = mongoose.Schema({
     email:{
         type:String,
         required:[true,"this field is required"],
-        unique: [true,"number already exist"], 
+        unique: [true,"email already exist"], 
     },
     password:{
 type:String,
@@ -75,5 +75,5 @@ if(this.isModified("password")){
 next();
 })
 
-const register = mongoose.model("Register",registerSchema);
+const register = mongoose.model("Register",registerSchema); 
 module.exports=register

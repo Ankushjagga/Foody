@@ -10,8 +10,8 @@ const bcrypt = require("bcrypt")
     exports.register = async (req,res)=>{
       try {
 
-
-        res.render('register',{title:"register"})
+const tell = req.flash("tell")
+        res.render('register',{title:"register",tell})
       
       } catch (error) {
         res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -42,18 +42,21 @@ const bcrypt = require("bcrypt")
       httpOnly:true
     });
     await data.save();
-    res.redirect("/")
-//  alert("Registration sucessfull 😄")
+    req.flash("tell","Registration sucessfull 😄")
+    res.redirect("/submitRecipe")
+
+//  toast("")
   }
   else{
     
-   
-    res.status(400).send("Invalid Credientials")
+    req.flash("tell","Invalid Credientials")
+   res.redirect("/register");
+    res.status(400);
   }
   
         
         } catch (error) {
-          res.status(500).send( {message: error.message || "Something went wrong 😩"} );
+          res.status(500).send(  "Something went wrong 😩" );
         
         }
         }
@@ -64,7 +67,9 @@ const bcrypt = require("bcrypt")
 
       exports.login = async (req,res)=>{
         try {
-          res.render('login',{title:"login"})
+          const show=req.flash("show")
+          console.log(show);
+          res.render('login',{title:"login",show})
         
         } catch (error) {
           res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -83,23 +88,32 @@ const bcrypt = require("bcrypt")
           const isMatch = await bcrypt.compare(password,userData.password)
           const token = await userData.generateAuthToken();
           console.log(token);
-          res.cookie("jwt",token,{
-            httpOnly:true
-          });
+          
 
           if(isMatch){
-            // alert("Login sucessfull 😄")
+            res.cookie("jwt",token,{
+              httpOnly:true
+            });
+            // Swal.fire('Any fool can use a computer')
+            req.flash("show","Login sucessfull 😄")
+            res.redirect("/submitRecipe")
+          }
 
-            res.redirect('/')
-          }
           else{
-            res.send("invalid crediential 😟")
+            req.flash("show","invalid crediential 😟")
+            res.redirect("/login")
+
+            // res.send("invalid crediential 😟")
           }
+      
+       
         
         } catch (error) {
-          res.status(500).send({message: error.message || "Something went wrong 😩" });
+          // res.status(500).send({message: error.message || "Something went wrong 😩" });
+          req.flash("tell", "Email not registered , You need to create account")
+          res.redirect("/register")
         
-        }
+        } 
         }
 
 
@@ -119,6 +133,7 @@ res.clearCookie("jwt");
 
 console.log("logout sucessful");
 // alert("Logout sucessfull 😄")
+req.flash("show","Logout Sucessfull 😄")
 
 
 await req.user.save();

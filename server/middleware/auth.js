@@ -16,7 +16,7 @@ try {
     next()
     
 } catch (error) {
-    // alert("YOU NEED TO LOGIN FIRST 🆗")
+    req.flash("show","You need to login first 🆗")
     res.redirect("login")
 }
 
