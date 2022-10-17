@@ -11,7 +11,8 @@ const bcrypt = require("bcrypt")
       try {
 
 const tell = req.flash("tell")
-        res.render('register',{title:"register",tell})
+const tells = req.flash("tells")
+        res.render('register',{title:"register",tell,tells})
       
       } catch (error) {
         res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -43,13 +44,13 @@ const tell = req.flash("tell")
     });
     await data.save();
     req.flash("tell","Registration sucessfull 😄")
-    res.redirect("/submitRecipe")
+    res.redirect("/register")
 
 //  toast("")
   }
   else{
     
-    req.flash("tell","Invalid Credientials")
+    req.flash("tells","Invalid Credientials")
    res.redirect("/register");
     res.status(400);
   }
@@ -68,8 +69,9 @@ const tell = req.flash("tell")
       exports.login = async (req,res)=>{
         try {
           const show=req.flash("show")
+          const shows=req.flash("shows")
           console.log(show);
-          res.render('login',{title:"login",show})
+          res.render('login',{title:"login",show,shows})
         
         } catch (error) {
           res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -95,12 +97,12 @@ const tell = req.flash("tell")
               httpOnly:true
             });
             // Swal.fire('Any fool can use a computer')
-            req.flash("show","Login sucessfull 😄")
-            res.redirect("/submitRecipe")
+            req.flash("show","Login sucessfull 😄") 
+            res.redirect("/login")
           }
 
           else{
-            req.flash("show","invalid crediential 😟")
+            req.flash("shows","invalid crediential 😟")
             res.redirect("/login")
 
             // res.send("invalid crediential 😟")
@@ -110,7 +112,7 @@ const tell = req.flash("tell")
         
         } catch (error) {
           // res.status(500).send({message: error.message || "Something went wrong 😩" });
-          req.flash("tell", "Email not registered , You need to create account")
+          req.flash("tells", "Email not registered , You need to create account")
           res.redirect("/register")
         
         } 

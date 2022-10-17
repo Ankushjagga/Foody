@@ -14,6 +14,11 @@
     {{tell}}
     {{/if}}
 	</div>
+	<div class="alert-msg-error">
+    {{#if (isdefined tells)}}
+    {{tells}}
+    {{/if}}
+</div>
 <div class="container" id="container">
 	<div class="sign-up-container">
 		<form  method="POST" class="loginForm signinForm">

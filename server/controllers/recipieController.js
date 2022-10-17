@@ -174,7 +174,8 @@ console.log(error);
 
 exports.contact = async (req,res)=>{
 try {
-  res.render('contact',{title:"contactUs"})
+  const mess=req.flash("mess")
+  res.render('contact',{title:"contactUs",mess})
 
 } catch (error) {
   res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -193,13 +194,14 @@ const data = new Contact({
   email:req.body.email,
   message:req.body.message
 })
-await data.save()
-alert("message send sucessfully 😄")
-res.render("index");
 
+await data.save()
+req.flash("mess","Message sent sucessfully 😄")
+res.redirect("/contact");
   } catch (error) {
   
-      res.status(500).send({message: error.message || "Something went wrong 😩" });
+      res.status(500);
+      req.flash(send("mess",{message: error.message || "Something went wrong 😩" }))
   }
 }
 

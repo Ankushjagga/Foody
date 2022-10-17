@@ -8,6 +8,11 @@
 </head>
 <body>
     {{>navbar}}
+    <div class="alert-msg">
+    {{#if (isdefined mess)}}
+    {{mess}}
+    {{/if}}
+	</div>
 <section class="contact" id="contact">
 
     <h1 class="heading"><span class="rad">

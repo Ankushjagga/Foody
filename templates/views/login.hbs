@@ -13,7 +13,11 @@
     {{show}}
     {{/if}}
 </div>
-	
+	<div class="alert-msg-error">
+    {{#if (isdefined shows)}}
+    {{shows}}
+    {{/if}}
+</div>
   <div class="container" id="container">
 
 	<div class="login-in-container">

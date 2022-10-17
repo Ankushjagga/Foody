@@ -14,9 +14,8 @@ try {
     req.token = token;
 
     next()
-    
 } catch (error) {
-    req.flash("show","You need to login first 🆗")
+    req.flash("shows","You need to login first 🆗")
     res.redirect("login")
 }
 
