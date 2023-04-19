@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<style>
+    .navbar,.list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+align-items: center;
+    width: 12vw;
+    height: 100vh;
+    padding: 1rem;
+    position: fixed;
+    }
+    .list{
+
+    margin: 1rem;
+    }
+ .list>li{
+        padding: 2rem;
+ }
+ .buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12vw;
+  gap: 8rem;
+ }
+    
+    img{
+   width: 100%;
+   height:25vh;
+        box-sizing: border-box;
+        object-fit: contain;
+        display:block;
+    }
+    table, th, td {
+  padding: 1rem;
+  text-align: center;
+}
+th, td{
+border: 1px solid black;
+border-radius: .1rem;
+}
+table {
+    width:100%;
+   table-layout: fixed;
+   overflow-wrap: break-word;
+     display: flex;
+     justify-content: center;
+
+}td{
+
+width: 20vw;
+
+}
+p{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+h1{
+    text-align: center;
+}
+span{
+    text-align: center;
+    padding: 1rem;
+    margin-left: 8rem;
+    display: flex;
+    justify-content:flex-end;
+}
+.bt{
+    margin: 0 0 0 30rem;
+    background-color: #FE5F1E;
+    border-radius: 1rem;
+    padding: 1rem;
+    border: none;
+    color: #fff;
+    width: 10rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+</style>
+<body>
+      <nav class="navbar">
+      
+      <ol class="list">
+   <li><a href="/dashboard">Dashboard</a></li>
+        {{!-- {{#if token }} --}}
+        <li><a href="/adminUser">Users</a></li>
+        {{!-- {{else}} --}}
+        <li><a href="/adminRecipie">Recipe</a></li>
+      </ol>
+    <div id="menu" class="fas fa-bars"></div>
+       
+    </nav>
+<span class="head">
+
+    <h1>Categories Details</h1>
+<a href="/addCategory"> <button class=" bt">ADD Category</button></a>
+</span>
+    <table >
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Action</th>
+           
+        </tr>
+                {{#if (isdefined categ)}}
+{{#each categ}}
+<tr>
+
+    <td>
+
+            {{name}}
+    </td>
+    <td>
+
+       <img src="/img/{{image}}" alt="{{name}}">
+    </td>
+<td>
+
+    <form  method="POST">
+  <input type="hidden" name="id" value="{{ _id }}">
+        <button class="btn" type="submit" >delete</button>
+</form>
+</td>
+</tr>
+    
+
+
+
+   
+{{else}}
+<p>No items Found</p>
+{{/each}}
+{{/if}}
+    </table>
+            <script src="/js/script.js"></script>
+
+
+    </body>
+</html>

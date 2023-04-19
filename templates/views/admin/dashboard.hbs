@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+
+
+<style>
+    .navbar,.list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+align-items: center;
+    width: 12vw;
+    height: 100vh;
+    padding: 1rem;
+    position: fixed;
+    }
+    .list{
+
+    margin: 1rem;
+    }
+ .list>li{
+        padding: 2rem;
+ }
+ .buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12vw;
+  gap: 8rem;
+ }
+     table, th, td {
+  padding: 1rem;
+}
+th, td{
+border: 1px solid black;
+border-radius: .1rem;
+}
+table {
+     table-layout: fixed; 
+     margin-left: 13vw;}
+td{
+
+width: calc(100%/4);
+}
+p{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+h5{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 100;
+}
+h1{
+    text-align: center;
+    padding: 1rem;
+    margin-left: 8rem;
+}
+ img{
+   width: 100%;
+   height: 15vh;
+        box-sizing: border-box;
+        object-fit: cover;
+        display:block;
+    }
+    table, th, td {
+  padding: 1rem;
+}
+th, td{
+border: 1px solid black;
+border-radius: .1rem;
+}
+table {
+     table-layout: fixed; 
+     margin-left: 13vw;}
+td{
+
+width: calc(100%/6);
+}
+p{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+h5{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 100;
+}
+h1{
+    text-align: center;
+  
+}
+
+span{
+    text-align: center;
+    padding: 1rem;
+    margin-left: 8rem;
+    display: flex;
+    justify-content:flex-end;
+}
+.submit-form, .alert-msg, .alert-msg-error{
+ display: flex;
+ justify-content: center;
+ margin-left: 20rem;
+}
+@media (max-width:768px){
+.navbar{
+
+ display: block;
+    justify-content: space-between;
+    /* margin: 1.5rem; */
+    padding: 1rem;
+    background-color: #F8F8F8; 
+}
+#menu{
+    position: fixed;
+    top: 2rem;
+    right: 70rem;
+
+    background-color: rgb(230, 223, 223);
+
+    cursor: pointer;
+    font-size: 2.5rem;
+    padding:1rem 1.5rem;
+    z-index: 1000;
+}
+.toggle{
+     left: -14%;
+    top: 4%;
+    width: 20%;
+    height: 40%;
+}
+}
+</style>
+<body>
+  <div class="alert-msg">
+    {{#if (isdefined infoSubmit)}}
+    {{infoSubmit}}
+    {{/if}}
+</div>
+
+<div class="alert-msg-error">
+    {{#if (isdefined infoErrors)}}
+{{#each infoErrors}}
+    {{message}}
+    {{/each}}
+    {{/if}}
+</div>
+  <nav class="navbar">
+      
+      <ol class="list">
+        <li><a href="/dashboard">Dashboard</a></li>
+        {{!-- {{#if token }} --}}
+        <li><a href="/adminUser">Users</a></li>
+        {{!-- {{else}} --}}
+        <li><a href="/adminRecipie">Recipe</a></li>
+      
+      </ol>
+    <div id="menu" class="fas fa-bars"></div>
+       
+    </nav>
+<div class="buttons">
+  <a href="/adminUser">  <button class="btn" >Users : {{users}}</button></a>
+<a href="/adminRecipie">   <button class="btn"> Recipies : {{recipies}}</button></a>
+   <a href="/adminCategory"> <button class="btn">Categories : {{category}}</button></a>
+</div>
+<div class="recentUsers" style="text-transform: none;">
+  <h1>Recent Users</h1>
+  <table >
+        <tr>
+            <th>Name</th>
+            <th>PhoneNumber</th>
+            <th>Email</th>
+            <th > Password</th>
+           
+        </tr>
+                {{#if (isdefined data)}}
+{{#each data}}
+<tr>
+
+    <td style="text-transform: none;"> 
+
+            {{name}}
+    </td>
+    <td>
+
+        {{phoneNumber}}
+    </td>
+    <td>
+
+       <h5 style="text-transform: none;">
+
+       {{email}}
+       </h5> 
+    </td>
+    <td>
+
+      <p style="text-transform: none;">
+
+        {{cpassword}}
+      </p>
+    </td>
+    
+</tr>
+    
+
+
+
+   
+{{else}}
+<p>No items Found</p>
+{{/each}}
+{{/if}}
+    </table>
+  <h1>Recent Recipes</h1>
+
+     <table >
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>category</th>
+            <th > Description</th>
+            <th>Ingridents</th>
+            <th>Action</th>
+        </tr>
+                {{#if (isdefined recipe)}}
+{{#each recipe}}
+<tr>
+
+    <td>
+
+            {{name}}
+    </td>
+    <td>
+
+        <img src="/img/{{image}}" alt={{name}}>
+        {{!-- <a href="/img/{{image}}" target="_blank" rel="noopener noreferrer">open</a> --}}
+      {{!-- <iframe src="/img/{{image}}" frameborder="0" height="100%" width="100%"></iframe>   --}}
+    </td>
+    <td>
+
+       <h5>
+
+       {{category}}
+       </h5> 
+    </td>
+    <td>
+
+      <p>
+
+        {{description}}
+      </p>
+    </td>
+    <td>
+           {{#each ingredients}}
+
+              <p>
+
+                {{this}}
+              </p>
+                {{/each}}
+    </td>
+    <td>
+            <a href="/EditRecipe/{{_id}}">   <button class="btn" >Edit</button></a>
+<br>
+        <form  method="POST">
+  <input type="hidden" name="id" value="{{ _id }}">
+        <button type="submit" class="btn" >delete</button>
+</form>
+    </td>
+</tr>
+    
+
+
+
+   
+{{else}}
+<p>No items Found</p>
+{{/each}}
+{{/if}}
+    </table>
+</div>
+            {{!-- <script src="/js/script.js"></script> --}}
+            <script src="/js/indexScript.js"></script>
+
+
+</body>
+</html>

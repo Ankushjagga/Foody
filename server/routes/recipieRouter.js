@@ -14,6 +14,7 @@ router.get('/submitRecipe',auth, recipieController.submitRecipe);
 router.post('/submitRecipe', recipieController.submitRecipeonPost);
 router.get('/contact', recipieController.contact);
 router.post('/contact', recipieController.contactonPost);
+router.get('*',recipieController.errorpage);  
 
 
 module.exports = router; 

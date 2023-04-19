@@ -16,7 +16,7 @@ const tells = req.flash("tells")
       
       } catch (error) {
         res.status(500).send({message: error.message || "Something went wrong 😩" });
-      
+       
       }
       }
 
@@ -36,29 +36,32 @@ const tells = req.flash("tells")
         phoneNumber:req.body.phoneNumber,
         email:req.body.email
     })
-
-    const token = await data.generateAuthToken();
-    console.log(token);
-    res.cookie("jwt",token,{
-      httpOnly:true
-    });
-    await data.save();
-    req.flash("tell","Registration sucessfull 😄")
-    res.redirect("/register")
+   
+              const token = await data.generateAuthToken();
+              console.log(token);
+              res.cookie("jwt",token,{
+                httpOnly:true
+              });
+              await data.save();
+              req.flash("tell",`Registration sucessfull 😄, welcome ${data.name}`)
+              res.redirect("/register")
+            }
 
 //  toast("")
-  }
+  
   else{
     
-    req.flash("tells","Invalid Credientials")
+    req.flash("tells","password doesnot match 😢")
    res.redirect("/register");
     res.status(400);
   }
   
         
         } catch (error) {
-          res.status(500).send(  "Something went wrong 😩" );
-        
+          res.status(500)
+          req.flash("tells","Enter different email or phone number pls 🙄 ")
+   res.redirect("/register");
+        // console.log(error);
         }
         }
 /* 
@@ -97,7 +100,7 @@ const tells = req.flash("tells")
               httpOnly:true
             });
             // Swal.fire('Any fool can use a computer')
-            req.flash("show","Login sucessfull 😄") 
+            req.flash("show",`Login sucessfull 😄, welcome ${userData.name} 😇` ) 
             res.redirect("/login")
           }
 

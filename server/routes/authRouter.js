@@ -12,3 +12,4 @@ router.post("/login",authController.loginonPost)
 router.get("/logout",auth,authController.logout)
 
 module.exports = router;
+ 

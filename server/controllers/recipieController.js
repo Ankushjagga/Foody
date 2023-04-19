@@ -17,7 +17,7 @@ exports.homepage = async(req,res)=>{
         res.status(500).send({message: error.message||"Something went wrong 😩"}) 
     }
 
-}
+} 
 
 
 
@@ -106,7 +106,8 @@ exports.submitRecipe = async(req ,res) => {
     const infoErrors = req.flash('infoErrors');
     const infoSubmit = req.flash('infoSubmit');
 console.log("cookie is "+ req.cookies.jwt);
-    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit} );
+const category = await Category.find({});
+    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit, category} );
    
   } catch (error) {
     res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -121,25 +122,23 @@ console.log("cookie is "+ req.cookies.jwt);
 */
 exports.submitRecipeonPost = async(req, res) => {
   try {
-
     let imageUploadFile;
     let uploadPath;
     let newImageName;
-
     if(!req.files || Object.keys(req.files).length === 0){
       console.log('No Files where uploaded.');
     } else {
 
       imageUploadFile = req.files.image;
-      newImageName = Date.now() + imageUploadFile.name;
+      newImageName =  imageUploadFile.name;
 
       uploadPath =  './public/img/' + newImageName; 
 
       imageUploadFile.mv(uploadPath, function(err){ 
         if(err) return res.satus(500).send(err); 
       })
-
     }
+    
     // console.log(imageUploadFile + newImageName + uploadPath);
 
 
@@ -157,7 +156,7 @@ exports.submitRecipeonPost = async(req, res) => {
     await newRecipe.save();
 
 
-
+ 
     req.flash('infoSubmit','Recipe added sucessfully 😄')
 
     res.redirect('/submitRecipe' );
@@ -185,7 +184,7 @@ try {
 
 // contact on post 
 
-
+ 
 exports.contactonPost = async(req,res)=>{
   try {
     
@@ -208,6 +207,20 @@ res.redirect("/contact");
 
 
 
+
+
+
+
+exports.errorpage=(req,res)=>{
+  try {
+    res.status(404);
+    res.render('error',{title:"error"})
+  
+  } catch (error) {
+    res.status(500).send({message: error.message || "Something went wrong 😩" });
+  
+  }
+  } 
 
 
 

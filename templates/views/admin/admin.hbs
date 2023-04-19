@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+<style>
+
+.login-img{
+    width: 35vw;
+    margin: 3rem 0rem 2rem 2rem ;
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+.heading-admin{
+    text-align: center;
+    margin-top: 1rem;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+  
+
+</style>
+<body>
+    <nav class="navbar">
+      <div class="name">
+        <figure><a href="/"><img src="/img/foody.jpg" alt="logo" /></a></figure>
+      </div>
+    <h1  class="heading-admin">ADMIN PANEL</h1>
+    </nav>
+	<div class="alert-msg-error">
+    {{#if (isdefined tells)}}
+    {{tells}}
+    {{/if}}
+</div>
+
+         <div class="container" id="container">
+
+	<div class="login-in-container">
+	
+		<div class="details">
+			<img src="/img/Admin.png" alt="img" class="login-img">
+		</div>
+        	<form method="POST" class="loginForm">
+			<h1>login in</h1>
+			
+			<input type="text" placeholder="Username" class="inp"  name="adminemail" required/>
+			<input type="password" placeholder="Password" class="inp"  name="adminpassword" required />
+			<a href="#" style="text-transform: none;" >Username : admin && password: admin</a>
+
+			<button class="btn ghostbtn">
+				
+				
+				login In
+			</button>
+		</form>
+	</div>
+			
+			
+	
+</div>
+{{>footer}}
+          <script src="/js/script.js"></script>
+
+
+</body>
+</html>

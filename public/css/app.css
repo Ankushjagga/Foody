@@ -473,7 +473,7 @@ background-size: cover;
  }
  .ingridentdiv>input{
     padding: 1rem;
-    width: 55vw;
+    width: 46vw;
     text-transform: none;
 
  }
@@ -503,6 +503,14 @@ background-size: cover;
     background-color: red;
     border-radius: 1rem;
  }
+
+
+
+ /* admin */
+
+
+
+ 
 
  /* responsiveness */
 
@@ -536,15 +544,18 @@ font-size: 1.4rem;
     color: black;
 }
 .toggle{
-    right: -8%;
-    top: 11%;
+    right: 9%;
+    top: 7%;
+    -webkit-animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both;
+    animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both
    }
+   @-webkit-keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}}@keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}}
 #menu{
     display: block;
-  
+   
 }
 .navbar{
-    display: block;
+    display: block!important;
 }
 figure{
     display: flex;
@@ -552,7 +563,7 @@ figure{
     width: 100%;
 }
 .name>figure>a>img {
-    width: 20rem;
+    width: 15rem;
 }
 #search input {
     width: 70%;
