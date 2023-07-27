@@ -115,8 +115,8 @@ exports.addRecipieonPost = async(req, res) => {
   
         uploadPath =  './public/img/' + newImageName; 
   
-        imageUploadFile.mv(uploadPath, function(err){ 
-          if(err) return res.satus(500).send(err); 
+        imageUploadFile?.mv(uploadPath, function(err){ 
+          if(err) return res.status(500).send(err); 
         })
   
       }
