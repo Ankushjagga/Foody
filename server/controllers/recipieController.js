@@ -129,7 +129,7 @@ exports.submitRecipeonPost = async(req, res) => {
       console.log('No Files where uploaded.');
     } else {
 
-      imageUploadFile = req.files.image;
+      imageUploadFile = req.files?.image;
       newImageName =  imageUploadFile.name;
 
       uploadPath =  './public/img/' + newImageName; 
