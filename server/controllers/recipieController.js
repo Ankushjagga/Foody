@@ -130,7 +130,7 @@ exports.submitRecipeonPost = async(req, res) => {
     } else {
 
       imageUploadFile = req.files?.image;
-      newImageName =  imageUploadFile.name;
+      newImageName =  imageUploadFile?.name;
 
       uploadPath =  './public/img/' + newImageName; 
 

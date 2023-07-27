@@ -263,7 +263,7 @@ exports.addRecipieonPost = async(req, res) => {
   exports.editRecipeonput = async (req, res)=> {   
     console.log(req.body);
     imageUploadFile = req?.files?.image;
-    newImageName =  imageUploadFile.name;
+    newImageName =  imageUploadFile?.name;
 
     uploadPath =  './public/img/' + newImageName; 
 
