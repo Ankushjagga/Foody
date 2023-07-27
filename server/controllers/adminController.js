@@ -262,13 +262,13 @@ exports.addRecipieonPost = async(req, res) => {
 
   exports.editRecipeonput = async (req, res)=> {   
     console.log(req.body);
-    imageUploadFile = req.files?.image;
+    imageUploadFile = req?.files?.image;
     newImageName =  imageUploadFile.name;
 
     uploadPath =  './public/img/' + newImageName; 
 
     imageUploadFile.mv(uploadPath, function(err){ 
-      if(err) return res.satus(500).send(err);
+      if(err) return res.staus(500).send(err);
       })
 try{
   const a = await Recipe.findByIdAndUpdate(req.params.id,{$set:req.body, "image": req.files.image.name},{new:true});
