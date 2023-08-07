@@ -53,7 +53,7 @@ html::-webkit-scrollbar-thumb{
  }
  #menu{
     position: fixed;
-    top: 3rem;
+    top: 5rem;
     right: 0.1rem;
     background-color: rgb(230, 223, 223);
 
@@ -529,7 +529,7 @@ html{
     display: flex;
     flex-direction: column;
     background-color: rgb(230, 223, 223);
-
+top: 10%;
     z-index: 100;
 
 }
@@ -544,12 +544,13 @@ font-size: 1.4rem;
     color: black;
 }
 .toggle{
-    right: 9%;
-    top: 7%;
-    -webkit-animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both;
+    right: -12%;
+    top: 10%;
+    /* -webkit-animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both;
     animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both
    }
-   @-webkit-keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}}@keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}}
+   @-webkit-keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}}@keyframes slide-right{0%{-webkit-transform:translateX(0);transform:translateX(0)}100%{-webkit-transform:translateX(100px);transform:translateX(100px)}} */
+}
 #menu{
     display: block;
    
@@ -758,11 +759,21 @@ flex-wrap: wrap;
     width: 50%;
     
 }
+.main>h1{
+    left: 6%;
+}
+.box{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
 }
 @media (max-width:350px){
 html{
     font-size: 50%;
 }
+
 }
 @media (max-width:250px){
     html{
