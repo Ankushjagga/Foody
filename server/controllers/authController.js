@@ -59,7 +59,7 @@ const tells = req.flash("tells")
         
         } catch (error) {
           res.status(500)
-          req.flash("tells","Enter different email or phone number pls 🙄 ")
+          req.flash("tells","Email alrady exist 🙄 ")
    res.redirect("/register");
         // console.log(error);
         }

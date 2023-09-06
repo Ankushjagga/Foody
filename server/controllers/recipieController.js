@@ -78,10 +78,10 @@ exports.exploreLatest = async(req, res) => {
     } catch (error) {
       res.status(500).send({message: error.message || "Something went wrong 😩" });
     }
-  } 
+  }  
   
   
-  
+   
   /**
    * GET /explore-random
    * Explore Random as JSON

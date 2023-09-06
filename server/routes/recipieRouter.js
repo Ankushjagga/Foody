@@ -17,4 +17,4 @@ router.post('/contact', recipieController.contactonPost);
 router.get('*',recipieController.errorpage);  
 
 
-module.exports = router; 
+module.exports = router;  

@@ -13,6 +13,7 @@ try {
     req.user = user;
     req.token = token;
 
+
     next()
 } catch (error) {
     req.flash("shows","You need to login first 🆗")

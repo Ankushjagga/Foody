@@ -7,6 +7,7 @@ router.post("/admin",adminController.adminonPost)
 router.get("/dashboard",adminController.Dashboard);
 router.get("/adminRecipie",adminController.adminRecipies);
 router.get("/adminUser",adminController.users);
+router.get("/admincontact",adminController.contacts);
 router.get("/adminCategory",adminController.category);
 router.get("/addRecipie",adminController.addRecipie);
 router.post("/addRecipie",adminController.addRecipieonPost);

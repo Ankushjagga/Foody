@@ -11,13 +11,11 @@ const registerSchema = mongoose.Schema({
     password:{
 type:String,
 required:[true,"this field is required"],
-minlength:8
 
     },
     cpassword:{
         type:String,
         required:[true,"this field is required"],
-        minlength:8
 
     },
     
@@ -29,10 +27,10 @@ minlength:8
       phoneNumber : {
         type:String,
         required:[true,"this field is required"],
-        unique:[true,"number already exist"]
 
 
         },
+      
         tokens:[
             {
 

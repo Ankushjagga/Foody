@@ -2,6 +2,7 @@ require("../connection/db")
 const Category = require("../models/Category")
 const Recipe = require("../models/Recipe")
 const Register = require("../models/register")
+const Contact = require("../models/contact")
 
 
 exports.admin=(req,res)=>{
@@ -72,6 +73,12 @@ exports.users = async (req,res)=>{
 const data = await Register.find({});
 res.render("adminUser",{data});
 }
+
+exports.contacts = async (req,res)=>{
+  const data = await Contact.find({});
+  res.render("admincontact",{data});
+  }
+  
 
 exports.category =async(req,res)=>{
     const categ = await Category.find({});
