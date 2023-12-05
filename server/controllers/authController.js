@@ -12,7 +12,9 @@ const bcrypt = require("bcrypt")
 
 const tell = req.flash("tell")
 const tells = req.flash("tells")
-        res.render('register',{title:"register",tell,tells})
+const token= req.cookies.jwt;
+
+        res.render('register',{title:"register",tell,tells,token})
       
       } catch (error) {
         res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -72,16 +74,17 @@ const tells = req.flash("tells")
       exports.login = async (req,res)=>{
         try {
           const show=req.flash("show")
-          const shows=req.flash("shows")
+          const shows=req.flash("shows") 
           console.log(show);
-          res.render('login',{title:"login",show,shows})
+const token= req.cookies.jwt;
+          res.render('login',{title:"login",show,shows,token})
         
         } catch (error) {
           res.status(500).send({message: error.message || "Something went wrong 😩" });
         
         }
         }
-
+ 
         /* 
       login on post
       */ 

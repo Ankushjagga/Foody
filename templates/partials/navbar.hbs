@@ -4,13 +4,13 @@
       </div>
       <ol class="list">
         <li><a href="/submitRecipe">Submit</a></li>
-        {{!-- {{#if token }} --}}
+        <li><a href="/contact">contact</a></li>
+        {{#if token }}
         <li><a href="/logout">Logout</a></li>
-        {{!-- {{else}} --}}
+        {{else}}
         <li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
-        {{!-- {{/if}} --}}
-        <li><a href="/contact">contact</a></li>
+        {{/if}}
       </ol>
        <form method="POST" action="/search" id="search"><input type="text" placeholder="search" title="pls press enter for search" name="searchTerm"><i class="fa-solid fa-magnifying-glass"></i></form>
     <div id="menu" class="fas fa-bars"></div>

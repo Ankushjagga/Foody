@@ -2,17 +2,20 @@ require("../connection/db")
 const Category = require("../models/Category")
 const Recipe = require("../models/Recipe")
 const Contact = require("../models/contact")
-
+const auth = require("../middleware/auth")
+const jwt = require("jsonwebtoken")
+const register = require("../models/register")
 // GET Homepage
 exports.homepage = async(req,res)=>{
 
-    try {
+    try {  
         const categories = await Category.find({})
         const latest = await Recipe.find({}).sort({_id:-1}).limit(5)
         const burger = await Recipe.find({'category':'burger'}).sort({_id:-1}).limit(5)
         const food = {latest,burger}
-
-        res.render("index",{title:"homepage",categories,food})                 
+        const token= req?.cookies?.jwt;
+  
+        res.render("index",{title:"homepage",categories,food,token})                 
     } catch (error) {
         res.status(500).send({message: error.message||"Something went wrong 😩"}) 
     }
@@ -26,7 +29,8 @@ exports.exploreRecipe = async(req,res)=>{
     try {
         let recipeId = req.params.id;
         const recipe =  await Recipe.findById(recipeId)
-        res.render("recipe",{title:"recipe",recipe})                 
+        const token= req.cookies.jwt;
+        res.render("recipe",{title:"recipe",recipe,token})                 
         
     } catch (error) {
         res.status(500).send({message: error.message||"Something went wrong 😩"})
@@ -39,8 +43,10 @@ exports.exploreCategories = async(req,res)=>{
     try {
         let categoryId = req.params.id;
         const category =  await Recipe.find({'category':categoryId})
+const token= req.cookies.jwt;
+
         console.log(category);
-        res.render("category",{title:"category",category})                 
+        res.render("category",{title:"category",category,token})                 
         
     } catch (error) {
         res.status(500).send({message: error.message||"Something went wrong 😩"})
@@ -57,9 +63,10 @@ exports.searchRecipe = async(req, res) => {
       let searchTerm = req.body.searchTerm;
       let recipe = await Recipe.find( { $text: { $search: searchTerm, $diacriticSensitive: true } });
 
+const token= req.cookies.jwt;
       
     //   res.json(recipe)
-      res.render('search', { title: 'Search', recipe } );
+      res.render('search', { title: 'Search', recipe ,token} );
     } catch (error) {
       res.status(500).send({message: error.message || "Error Occured" });
     }
@@ -74,7 +81,9 @@ exports.exploreLatest = async(req, res) => {
     try {
     //   const limitNumber = 20;
       const recipe = await Recipe.find({}).sort({ _id: -1 });
-      res.render('exploreLatest', { title: ' Explore Latest', recipe } );
+const token= req.cookies.jwt;
+
+      res.render('exploreLatest', { title: ' Explore Latest', recipe,token } );
     } catch (error) {
       res.status(500).send({message: error.message || "Something went wrong 😩" });
     }
@@ -91,7 +100,9 @@ exports.exploreLatest = async(req, res) => {
       let count = await Recipe.find().countDocuments();
       let random = Math.floor(Math.random() * count);
       let recipe = await Recipe.findOne().skip(random).exec();
-      res.render('exploreRandom', { title: 'Explore random', recipe } );
+const token= req.cookies.jwt;
+
+      res.render('exploreRandom', { title: 'Explore random', recipe ,token} );
     } catch (error) {
       res.status(500).send({message: error.message || "Something went wrong 😩" });
     }
@@ -106,8 +117,11 @@ exports.submitRecipe = async(req ,res) => {
     const infoErrors = req.flash('infoErrors');
     const infoSubmit = req.flash('infoSubmit');
 console.log("cookie is "+ req.cookies.jwt);
+const token= req.cookies.jwt;
+console.log(req.user.name);
+
 const category = await Category.find({});
-    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit, category} );
+    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit, category, token} );
    
   } catch (error) {
     res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -174,7 +188,9 @@ console.log(error);
 exports.contact = async (req,res)=>{
 try {
   const mess=req.flash("mess")
-  res.render('contact',{title:"contactUs",mess})
+const token= req.cookies.jwt;
+
+  res.render('contact',{title:"contactUs",mess,token})
 
 } catch (error) {
   res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -214,7 +230,9 @@ res.redirect("/contact");
 exports.errorpage=(req,res)=>{
   try {
     res.status(404);
-    res.render('error',{title:"error"})
+const token= req.cookies.jwt;
+
+    res.render('error',{title:"error", token})
   
   } catch (error) {
     res.status(500).send({message: error.message || "Something went wrong 😩" });

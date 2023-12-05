@@ -17,7 +17,7 @@ const viewspath = path.join(__dirname,"templates/views");
 const partialspath = path.join(__dirname,"templates/partials");
 const adminpath = path.join(__dirname,"templates/views/admin");
 
-app.use(express.static("public"))
+app.use(express.static("public"))    
  
 app.use(express.urlencoded({extended:true}))
 
