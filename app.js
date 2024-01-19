@@ -7,16 +7,16 @@ const auth = require("./server/routes/authRouter")
 const admin = require("./server/routes/adminRoutes")
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); 
 const flash = require('connect-flash');
-
+     
 const app =express(); 
 const port = process.env.PORT ||8000
-
+  
 const viewspath = path.join(__dirname,"templates/views");
 const partialspath = path.join(__dirname,"templates/partials");
 const adminpath = path.join(__dirname,"templates/views/admin");
-
+ 
 app.use(express.static("public"))    
  
 app.use(express.urlencoded({extended:true}))

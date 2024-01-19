@@ -32,6 +32,7 @@ align-items: center;
   align-items: center;
   margin-left: 12vw;
   gap: 8rem;
+  flex-wrap: wrap;
  }
      table, th, td {
   padding: 1rem;
@@ -112,33 +113,55 @@ span{
  justify-content: center;
  margin-left: 20rem;
 }
+#adminmenu{
+  display: none;
+}
 @media (max-width:768px){
 .navbar{
 
  display: block;
     justify-content: space-between;
     /* margin: 1.5rem; */
+    height: auto;
     padding: 1rem;
     background-color: #F8F8F8; 
 }
-#menu{
-    position: fixed;
-    top: 2rem;
-    right: 70rem;
+.buttons{
+  gap: 1rem;
 
+}
+.list{
+  left:-100%
+}
+.list>li{
+  margin: 2rem;
+}
+#adminmenu{
+    position: fixed;
+ top: 3%;
+    right: 91%;
+
+display: block;
     background-color: rgb(230, 223, 223);
 
     cursor: pointer;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     padding:1rem 1.5rem;
     z-index: 1000;
 }
-.toggle{
-     left: -14%;
-    top: 4%;
-    width: 20%;
-    height: 40%;
+table{
+  margin-left: 0;
 }
+.toggle{
+        left: -2%;
+    top: -2%;
+    width: 20%;
+    height: 100%;
+}
+#menu{
+  display: none ;
+}
+
 }
 </style>
 <body>
@@ -166,7 +189,7 @@ span{
         <li><a href="/admincontact">Contact</a></li>
       
       </ol>
-    <div id="menu" class="fas fa-bars"></div>
+    <div id="adminmenu" class="fas fa-bars"></div>
        
     </nav>
 <div class="buttons">
@@ -176,6 +199,8 @@ span{
 </div>
 <div class="recentUsers" style="text-transform: none;">
   <h1>Recent Users</h1>
+  <div style="overflow-x: auto;">
+
   <table >
         <tr>
             <th>Name</th>
@@ -222,11 +247,15 @@ span{
 {{/each}}
 {{/if}}
     </table>
+  </div>
+
   <h1>Recent Recipes</h1>
+<div style="overflow-x: auto;">
 
      <table >
         <tr>
-            <th>Name</th>
+            <th>Author</th>
+            <th>Recipe Name</th>
             <th>Image</th>
             <th>category</th>
             <th > Description</th>
@@ -236,7 +265,14 @@ span{
                 {{#if (isdefined recipe)}}
 {{#each recipe}}
 <tr>
+<td>
 
+            {{#if username}}
+            {{username}}
+            {{else}}
+            Admin 
+            {{/if}}
+    </td>
     <td>
 
             {{name}}
@@ -290,8 +326,17 @@ span{
 {{/if}}
     </table>
 </div>
+
+</div>
             {{!-- <script src="/js/script.js"></script> --}}
-            <script src="/js/indexScript.js"></script>
+            <script >
+              const adminmenu = document.getElementById("adminmenu");
+ const navbar2 = document.querySelector(".list"); 
+adminmenu.addEventListener("click",()=>{
+  adminmenu.classList.toggle('fa-times');  
+   navbar2.classList.toggle('toggle');  
+})
+            </script>
 
 
 </body>

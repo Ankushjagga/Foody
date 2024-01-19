@@ -51,6 +51,38 @@ html::-webkit-scrollbar-thumb{
     z-index: 1000;
     /* background-color: #F8F8F8; */
  }
+ .dropbtn {
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    background: transparent;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    min-width: 15rem;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: #fff;
+    padding: 1rem;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+      background-color: orange;
+border-radius: 8rem;
+  }
+  .dropdown:hover+ .dropdown-content {display: block;}
  #menu{
     position: fixed;
     top: 4rem;
@@ -531,6 +563,7 @@ html{
     background-color: rgb(230, 223, 223);
 top: 10%;
     z-index: 100;
+    height: 50%;
 
 }
 .list>li{
@@ -544,7 +577,7 @@ font-size: 1.4rem;
     color: black;
 }
 .toggle{
-    right: -12%;
+    right: -6%;
     top: 10%;
     /* -webkit-animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both;
     animation:slide-right .5s cubic-bezier(.25,.46,.45,.94) both

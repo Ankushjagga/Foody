@@ -5,6 +5,7 @@ const Contact = require("../models/contact")
 const auth = require("../middleware/auth")
 const jwt = require("jsonwebtoken")
 const register = require("../models/register")
+const contact = require("../models/contact")
 // GET Homepage
 exports.homepage = async(req,res)=>{
 
@@ -14,6 +15,13 @@ exports.homepage = async(req,res)=>{
         const burger = await Recipe.find({'category':'burger'}).sort({_id:-1}).limit(5)
         const food = {latest,burger}
         const token= req?.cookies?.jwt;
+        // if(!token){
+          
+        // }
+        // const verifyUser = jwt?.verify(token,process.env.SECRETE_KEY)
+        // const user = await register.findOne({_id:verifyUser._id});
+        // const username = user.name;
+
   
         res.render("index",{title:"homepage",categories,food,token})                 
     } catch (error) {
@@ -118,10 +126,12 @@ exports.submitRecipe = async(req ,res) => {
     const infoSubmit = req.flash('infoSubmit');
 console.log("cookie is "+ req.cookies.jwt);
 const token= req.cookies.jwt;
+const name = req.user.name
+const email = req.user.email
 console.log(req.user.name);
 
 const category = await Category.find({});
-    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit, category, token} );
+    res.render('submitRecipe', { title: ' Submit Recipe' ,infoErrors,infoSubmit, category, token, name, email} );
    
   } catch (error) {
     res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -155,12 +165,11 @@ exports.submitRecipeonPost = async(req, res) => {
     
     // console.log(imageUploadFile + newImageName + uploadPath);
 
-
-
     const newRecipe = new Recipe({
       name: req.body.name,
       description: req.body.description,
       email: req.body.email,
+      username: req.body.username,
       ingredients: req.body.ingredients,
       category: req.body.category,
       image: newImageName
@@ -189,8 +198,10 @@ exports.contact = async (req,res)=>{
 try {
   const mess=req.flash("mess")
 const token= req.cookies.jwt;
+const name= req.user.name
+const email = req.user.email
 
-  res.render('contact',{title:"contactUs",mess,token})
+  res.render('contact',{title:"contactUs",mess,token, name, email})
 
 } catch (error) {
   res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -221,12 +232,86 @@ res.redirect("/contact");
 }
 
 
+exports.userDashboard = async (req,res)=>{
+
+  try {
+    const data = req.user;
+    const recipe = await Recipe.find({email:data.email});
+    const msg = await contact.find({email:data.email});
+
+    console.log(msg); 
+    const infoError = req.flash('infoError');
+    const infoSubmits = req.flash('infoSubmits');
+const token= req.cookies.jwt;
+
+    res.render('userDashboard',{data, recipe, infoError,infoSubmits, token, msg});
+  } catch (error) {
+    res.status(500).send({message: error.message || "Something went wrong 😩" });
+    
+  }
+}
+exports.editRecipeonputs = async (req, res)=> {   
+  console.log(req.body); 
+  imageUploadFile = req?.files?.image;
+  newImageName =  imageUploadFile?.name;
+
+  uploadPath =  './public/img/' + newImageName; 
+
+  imageUploadFile?.mv(uploadPath, function(err){ 
+    if(err) return res.staus(500).send(err);
+    })
+try{
+const a = await Recipe.findByIdAndUpdate(req.params.id,{$set:req.body, "image": req.files?.image?.name},{new:true});
+
+ console.log(a);
+    req.flash('infoSubmits','Recipe Edited sucessfully 😄')
+    res.redirect('/userDashboard' );
+}catch (error) {
+    req.flash('infoError',error) 
+console.log(error);
+    
+    res.redirect("/userDashboard") ;             
+    
+} 
+
+};
+exports.editRecipe = async(req,res)=>{
+
+  try {
+    let recipeId = req.params.id;
+    const recipe =  await Recipe.findById(recipeId);
+    const category = await Category.find({});
+    const infoErrors = req.flash('infoErrors');
+    const infoSubmit = req.flash('infoSubmit');
+const token= req.cookies.jwt;
+
+    res.render("EditRecipie",{title:"Editrecipe",recipe,category,infoErrors,infoSubmit,token})                 
+    
+} catch (error) {
+    res.status(500).send({message: error.message||"Something went wrong 😩"})
+    
+}
+
+}
+
+exports.deleteRecipie= async(req,res)=>{
+  try {
+      let recipeId = req.body.id;
+      const recipe =  await Recipe.findByIdAndDelete({_id:recipeId})
+      req.flash('infoSubmits','Recipe deleted sucessfully 😄')
+
+      res.redirect('/userDashboard' );
+    } catch (error) {
+      req.flash('infoError',error) 
+  console.log(error);
+      
+      res.redirect("/userDashboard") ;             
+      
+  } 
+}
 
 
-
-
-
-
+ 
 exports.errorpage=(req,res)=>{
   try {
     res.status(404);

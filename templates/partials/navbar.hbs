@@ -7,12 +7,16 @@
         <li><a href="/contact">contact</a></li>
         {{#if token }}
         <li><a href="/logout">Logout</a></li>
+      {{!-- <button class="dropbtn">UserXYZ</button> --}}
+          {{!-- <div class="dropdown-content"> --}}
+           <li><a href="/userDashboard">Dashboard</a></li> 
+          {{!-- </div> --}}
         {{else}}
         <li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
         {{/if}}
       </ol>
-       <form method="POST" action="/search" id="search"><input type="text" placeholder="search" title="pls press enter for search" name="searchTerm"><i class="fa-solid fa-magnifying-glass"></i></form>
+       <form method="POST" action="/search" id="search"><input type="text" placeholder="search" title="pls press enter for search" name="searchTerm"><i class="fa-solid fa-magnifying-glass" id="glass"></i></form>
     <div id="menu" class="fas fa-bars"></div>
 
-    </nav>
+    </nav>  

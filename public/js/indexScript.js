@@ -4,9 +4,11 @@
 const menu = document.getElementById("menu");
   const navbar = document.querySelector(".list");
   menu.addEventListener("click",()=>{
-    menu.classList.toggle('fa-times');
-    navbar.classList.toggle('toggle');
+    menu.classList.toggle('fa-times');  
+    navbar.classList.toggle('toggle');  
   })
+  
+ 
  
   function scrollFunction() {
     if (
@@ -20,3 +22,8 @@ const menu = document.getElementById("menu");
 window.onscroll = function () {
     scrollFunction();
 };
+const search = document.getElementById("glass");
+const form = document.getElementById("search");
+search.addEventListener("click",()=>{
+  form.submit()
+})

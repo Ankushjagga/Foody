@@ -69,6 +69,53 @@ h1{
     padding: 1rem;
     margin-left: 8rem;
 }
+#adminmenu{
+  display: none ;
+}
+
+@media (max-width:768px){
+.navbar{
+
+ display: block;
+    justify-content: space-between;
+    /* margin: 1.5rem; */
+    height: auto;
+    padding: 1rem;
+    background-color: #F8F8F8; 
+}
+.list{
+  left:-100%
+}
+.list>li{
+  margin: 2rem;
+}
+#adminmenu{
+    position: fixed;
+ top: 3%;
+    right: 91%;
+
+display: block;
+    background-color: rgb(230, 223, 223);
+
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding:1rem 1.5rem;
+    z-index: 1000;
+}
+table{
+  margin-left: 0;
+}
+.toggle{
+        left: -2%;
+    top: -2%;
+    width: 20%;
+    height: 100%;
+}
+#menu{
+  display: none ;
+}
+
+}
 </style>
 <body>
       <nav class="navbar">
@@ -82,11 +129,14 @@ h1{
         <li><a href="/admincontact">Contact</a></li>
 
       </ol>
-    <div id="menu" class="fas fa-bars"></div>
+       <div id="adminmenu" class="fas fa-bars"></div>
+
        
     </nav>
 
     <h1>Users Details</h1>
+    <div style="overflow-x: auto;">
+
     <table >
         <tr>
             <th>Name</th>
@@ -133,7 +183,17 @@ h1{
 {{/each}}
 {{/if}}
     </table>
-            <script src="/js/script.js"></script>
+    </div>
+    </body>
+                       <script >
+              const adminmenu = document.getElementById("adminmenu");
+ const navbar2 = document.querySelector(".list"); 
+adminmenu.addEventListener("click",()=>{
+  adminmenu.classList.toggle('fa-times');  
+   navbar2.classList.toggle('toggle');  
+})
+
+            </script>
 
 </body>
 

@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {{>links}}
 </head>
+<style>
+        .edit{
+        font-size: 13px;
+        margin-left: 13rem;
+    }
+</style>
 <body>
     {{>navbar}}
     <div class="latest-recipie">
@@ -22,6 +28,12 @@
 
 <img src="/img/{{image}}" alt="{{name}}">
 <h4>{{name}}</h4>
+{{#if username}}
+<span class="edit"> Recipe by- {{username}}</span>
+{{else}}
+<span class="edit"> Recipe by- Admin </span>
+
+{{/if}}
 </div>
 </a>
 {{else}}

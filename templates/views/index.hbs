@@ -9,6 +9,10 @@
     .main>h3{
       color: white;
     }
+    .edit{
+        font-size: 13px;
+        margin-left: 13rem;
+    }
    </style>
 </head>
 <body>
@@ -64,7 +68,12 @@ an expensive cookery book</h1>
      <div class="box">
         <img src="/img/{{image}}" alt={{name}}>
         <h4>{{name}}</h4>
-        
+        {{#if username}}
+<span class="edit"> Recipe by- {{username}}</span>
+{{else}}
+<span class="edit"> Recipe by- Admin </span>
+
+{{/if}}
       </div>
 </a>
 {{else}}

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt")
  
   /* 
       registration 
-      */ 
+      */  
 
     exports.register = async (req,res)=>{
       try {

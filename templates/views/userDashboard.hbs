@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{>links}}
+</head>
+
+<style>
+    *{
+        text-transform: none;
+    }
+img{
+    width: 20%;
+}
+
+ 
+
+h5{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 100;
+}
+h1{
+    text-align: center;
+    padding: 1rem ;
+    }
+ #img{
+   width: 100%;
+   height: 15vh;
+        box-sizing: border-box;
+        object-fit: cover;
+        display:block;
+    }
+    table, th, td {
+  padding: 1rem;
+}
+th, td{
+border: 1px solid black;
+border-radius: .1rem;
+}
+table {
+     table-layout: fixed; 
+     }
+     .overflow{
+     overflow-x: auto;
+
+     }
+td{
+
+width: calc(100%/6);
+}
+p{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    margin: .5rem 2rem;
+}
+
+
+span{
+    text-align: center;
+    padding: 1rem;
+    margin-left: 8rem;
+    display: flex;
+    justify-content:flex-end;
+}
+.submit-form, .alert-msg, .alert-msg-error{
+ display: flex;
+ justify-content: center;
+ margin-left: 20rem;
+}
+.userlist{
+    padding: 1rem;
+    margin: 1rem;
+}
+#li{
+    padding: 1rem;
+    list-style: auto;
+}
+.no{
+    text-align: center;
+    font-size: 1.5rem;
+}
+</style>
+<body>
+{{>navbar}}
+
+  <div class="alert-msg">
+    {{#if (isdefined infoSubmits)}}
+    {{infoSubmits}}
+    {{/if}}
+</div>
+
+<div class="alert-msg-error">
+    {{#if (isdefined infoError)}}
+{{#each infoError}}
+    {{message}}
+    {{/each}}
+    {{/if}}
+</div>
+<h1>Your detail</h1>
+<p><b>Name :-</b> {{data.name}}</p>
+<hr/>
+<br>
+<p><b>Email:-</b> {{data.email}}</p>
+<hr/>
+<br>
+<p> <b>Password:- </b>{{data.cpassword}}</p>
+<hr/>
+<br>
+<p><b>Phone Number:-</b> {{data.phoneNumber}}</p>
+<hr/>
+<br>
+
+  <h1>Your Recipes</h1>
+<div class="overflow">
+
+     <table >
+             
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>category</th>
+            <th > Description</th>
+            <th>Ingridents</th>
+            <th>Action</th>
+        </tr>
+<tr>
+   {{#if (isdefined recipe)}}
+{{#each recipe}}
+    <td>
+
+            {{name}}
+    </td>
+    <td>
+
+        <img src="/img/{{image}}" id="img" alt={{name}}>
+        {{!-- <a href="/img/{{image}}" target="_blank" rel="noopener noreferrer">open</a> --}}
+      {{!-- <iframe src="/img/{{image}}" frameborder="0" height="100%" width="100%"></iframe>   --}}
+    </td>
+    <td>
+
+       <h5>
+
+       {{category}}
+       </h5> 
+    </td>
+    <td>
+
+      <p>
+
+        {{description}}
+      </p>
+    </td>
+    <td>
+           {{#each ingredients}}
+
+              <p>
+
+                {{this}}
+              </p>
+                {{/each}}
+    </td>
+    <td>
+            <a href="/EditRecipie/{{_id}}">   <button class="btn" >Edit</button></a>
+<br>
+        <form  method="POST">
+  <input type="hidden" name="id" value="{{ _id }}">
+        <button type="submit" class="btn" >delete</button>
+</form>
+
+    </td>
+</tr>
+    
+
+
+
+   
+{{else}}
+<p class="no">No items Found 🥴</p>
+{{/each}}
+{{/if}}
+    </table>
+    </div>
+
+    <h1>Your messages</h1>
+<ul class="userlist">
+    {{#if (isdefined msg)}}
+    {{#each msg }}
+    <li id="li">
+
+    {{message}}
+    <hr/>
+    {{else}}
+<p class="no">No message Found 😟</p>
+{{/each}}
+{{/if}}
+    </ul>
+</div>
+{{>footer}}
+            {{!-- <script src="/js/script.js"></script> --}}
+            <script src="/js/indexScript.js"></script>
+
+
+</body>
+</html>

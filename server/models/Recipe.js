@@ -11,10 +11,14 @@ const   recipeSchema =  mongoose.Schema({
         required:[true ,"descrption field is required"]
     },
    
-    // email: {
-    //     type: String,
-    //     required: true
-    //   },
+    username: {
+        type: String,
+        required: true
+      },
+      email: {
+        type: String,
+        required: true
+      },
     ingredients:{
             type:Array,
             required: true
