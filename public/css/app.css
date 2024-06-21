@@ -503,7 +503,7 @@ background-size: cover;
     margin: .5rem;
     padding: .5rem;
  }
- .ingridentdiv>input{
+ .ingridentdiv>.loginSpan>input{
     padding: 1rem;
     width: 46vw;
     text-transform: none;
@@ -732,7 +732,24 @@ right: 18%;
     width: 30rem;
     
 }
-
+.loginSpan{
+position: relative;
+}
+#input-password ,  #input-cpassword {
+    position: absolute;
+    left: 92%;
+    top: 42%;
+    cursor: pointer;
+}
+.submitIng {
+    position: absolute;
+    left: 95%;
+    top: 20%;
+    cursor: pointer;
+}
+.fa-trash{
+    color: #111;
+}
 .ghostbtn{
     background-color: #111;
 }

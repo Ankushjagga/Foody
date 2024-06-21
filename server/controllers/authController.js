@@ -28,6 +28,12 @@ const token= req.cookies.jwt;
 
       exports.registeronPost = async (req,res)=>{
         try {
+          const existingUser = await Register.findOne({email : req.body.email});
+          if(existingUser) {
+            req.flash("tells","Email already exists 😟 ")
+           return res.redirect("/register")
+           
+          }
   const password = req.body.password;
   const cpassword=req.body.cpassword;
   if(password===cpassword){
@@ -39,14 +45,14 @@ const token= req.cookies.jwt;
         email:req.body.email
     })
    
-              const token = await data.generateAuthToken();
+              const token = await data?.generateAuthToken();
               console.log(token);
               res.cookie("jwt",token,{
                 httpOnly:true
               });
               await data.save();
               req.flash("tell",`Registration sucessfull 😄, welcome ${data.name}`)
-              res.redirect("/register")
+            res.redirect("/register")
             }
 
 //  toast("")
@@ -54,17 +60,31 @@ const token= req.cookies.jwt;
   else{
     
     req.flash("tells","password doesnot match 😢")
-   res.redirect("/register");
+  return res.redirect("/register");
     res.status(400);
   }
   
         
         } catch (error) {
-          res.status(500)
-          req.flash("tells","Email alrady exist 🙄 ")
-   res.redirect("/register");
-        // console.log(error);
-        }
+          // Handle errors
+          const errors = JSON.parse(error.message)
+          console.error("errorrr =================", errors.name);
+    if (errors.name === 'MongoServerError') {
+      if (errors.code === 11000  && errors.keyPattern.phoneNumber === 1) {
+        req.flash("tells", "Phone number already exists 🙄");
+      } else {
+        req.flash("tells", "MongoDB Error: " + errors.message);
+      }
+    } 
+     else {
+      // Handle other errors
+      req.flash("tells", "Something went Wrong");
+      
+    }
+    
+    // Redirect to registration page with error flash message
+    res.status(400).redirect("/register");
+        }  
         }
 /* 
       login
@@ -78,6 +98,7 @@ const token= req.cookies.jwt;
           console.log(show);
 const token= req.cookies.jwt;
           res.render('login',{title:"login",show,shows,token})
+        
         
         } catch (error) {
           res.status(500).send({message: error.message || "Something went wrong 😩" });
@@ -104,11 +125,14 @@ const token= req.cookies.jwt;
             });
             // Swal.fire('Any fool can use a computer')
             req.flash("show",`Login sucessfull 😄, welcome ${userData.name} 😇` ) 
+            // res.status(200).json('login sucess')
             res.redirect("/login")
           }
 
           else{
             req.flash("shows","invalid crediential 😟")
+            // res.status(400).json('invalid ')
+
             res.redirect("/login")
 
             // res.send("invalid crediential 😟")

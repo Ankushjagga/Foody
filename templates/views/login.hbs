@@ -24,8 +24,12 @@
 		<form method="POST" class="loginForm">
 			<h1>login in</h1>
 			
-			<input type="email" placeholder="Email" class="inp"  name="email" required/>
-			<input type="password" placeholder="Password" class="inp"  name="password" required />
+			<input type="email" placeholder="Email" class="inp" id="email"  name="email" required / >
+			<span class="loginSpan">
+
+			<input type="password" placeholder="Password" class="inp" id="password"  name="password" required />
+			 <i class="fa-solid fa-eye-slash" id="input-password"></i> 
+			</span>
 			<a href="#">Forgot your password?</a>
 			<button class="btn ghostbtn">
 				
@@ -49,6 +53,8 @@
 </div>
     {{>footer}}
       <script src="/js/indexScript.js"></script>
+      <script src="/js/LoginScript.js"></script>
+	
 
 </body>
 </html>

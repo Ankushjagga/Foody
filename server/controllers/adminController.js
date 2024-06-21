@@ -3,7 +3,7 @@ const Category = require("../models/Category")
 const Recipe = require("../models/Recipe")
 const Register = require("../models/register")
 const Contact = require("../models/contact")
-
+const bcrypt =  require("bcrypt")
 
 exports.admin=(req,res)=>{
     try {
@@ -22,10 +22,21 @@ exports.adminonPost=async (req,res)=>{
     try {
         const adminemail = req.body.adminemail;
         const adminpassword = req.body.adminpassword;
-        if(adminemail=="admin" && adminpassword=="admin"){
-           
-            res.redirect("/dashboard")
-        }
+      
+   const admin = await Register.findOne({email : adminemail});
+   if(!admin){
+    return  res.status(400).send("email doesnot exist");
+   }
+   const checkPassword = bcrypt.compare(admin.password , adminpassword)
+   if(admin.role === "admin"  && checkPassword){
+    const token = await admin.generateAuthToken();
+
+    res.cookie("jwt",token,{
+      httpOnly:true
+    });
+     res.redirect("/dashboard")
+    }
+        
         else{
 
             req.flash("tells", "INVALID CREDIENTIALS 😩 ")
@@ -42,7 +53,8 @@ exports.adminonPost=async (req,res)=>{
 
 exports.Dashboard= async (req,res)=>{
 try{
-
+const role = req.user.role; 
+console.log(role);
     const users = await Register.estimatedDocumentCount();
     console.log(users);
     const recipies = await  Recipe.estimatedDocumentCount();

@@ -149,6 +149,7 @@ exports.submitRecipeonPost = async(req, res) => {
     let imageUploadFile;
     let uploadPath;
     let newImageName;
+    console.log(req.files);
     if(!req.files || Object.keys(req.files).length === 0){
       console.log('No Files where uploaded.');
     } else {
@@ -163,7 +164,7 @@ exports.submitRecipeonPost = async(req, res) => {
       })
     }
     
-    // console.log(imageUploadFile + newImageName + uploadPath);
+    console.log(imageUploadFile + newImageName + uploadPath);
 
     const newRecipe = new Recipe({
       name: req.body.name,
