@@ -15,10 +15,10 @@ const   recipeSchema =  mongoose.Schema({
         type: String,
         required: true
       },
-      email: {
-        type: String,
-        required: true
-      },
+    //   email: {
+    //     type: String,
+    //     required: true
+    //   },
     ingredients:{
             type:Array,
             required: true
@@ -28,10 +28,15 @@ const   recipeSchema =  mongoose.Schema({
              
             required: [true,"category is required"]
         },
-        image:{
+        image:{ 
             type:String
             // required: [true,"image  field is required"]
-        }
+        } ,
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Register',  
+            // required: true
+          }
       
     
 })

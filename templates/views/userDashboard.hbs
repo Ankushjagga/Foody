@@ -108,9 +108,6 @@ span{
 <p><b>Email:-</b> {{data.email}}</p>
 <hr/>
 <br>
-<p> <b>Password:- </b>{{data.cpassword}}</p>
-<hr/>
-<br>
 <p><b>Phone Number:-</b> {{data.phoneNumber}}</p>
 <hr/>
 <br>
@@ -118,6 +115,7 @@ span{
   <h1>Your Recipes</h1>
 <div class="overflow">
 
+   {{#if recipe}}
      <table >
              
         <tr>
@@ -129,7 +127,6 @@ span{
             <th>Action</th>
         </tr>
 <tr>
-   {{#if (isdefined recipe)}}
 {{#each recipe}}
     <td>
 
@@ -182,20 +179,26 @@ span{
 {{else}}
 <p class="no">No items Found 🥴</p>
 {{/each}}
-{{/if}}
     </table>
+    {{else}}
+<p class="no">No Recpie Found 😟</p>
+
+{{/if}}
     </div>
 
     <h1>Your messages</h1>
 <ul class="userlist">
     {{#if (isdefined msg)}}
     {{#each msg }}
+    {{#each messages }}
+
     <li id="li">
 
-    {{message}}
+    {{text}}
     <hr/>
     {{else}}
 <p class="no">No message Found 😟</p>
+{{/each}}
 {{/each}}
 {{/if}}
     </ul>

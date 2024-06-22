@@ -9,7 +9,7 @@ try {
     const verifyUser = jwt.verify(token,process.env.SECRETE_KEY)
 
     const user = await register.findOne({_id:verifyUser._id});
- 
+ console.log(user);
     req.user = user;
     req.token = token; 
 

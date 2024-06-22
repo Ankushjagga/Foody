@@ -4,24 +4,28 @@ const isAdmin =  async (req, res, next) => {
 
 try {
     const token = req.cookies.jwt;  
+    console.log(token + "token of admiun");
     const verifyUser = jwt.verify(token,process.env.SECRETE_KEY)
-
+console.log("verify user adim ---" + verifyUser);
     const user = await register.findOne({_id:verifyUser._id});
- 
+ console.log("admmm user ---" + user);
     req.user = user;
     req.token = token; 
 
-    // Assuming you store the user object in req.user after authentication
     if (req.user && req.user.role === 'admin') {
-        return next(); // User is authorized, continue to the next middleware or route handler
-    } 
+        return next(); 
+    } else{
+        req.flash("tells","Access denied. Only admin  can access this resource")
+        return res.redirect("admin")
+
+    }
 } 
     
 
 
     catch (error) {
-        req.flash("tells","Access denied. Only admin users can access this resource")
-    res.redirect("admin")
+        req.flash("tells","Access denied. Only admin  can access this resource")
+   return res.redirect("admin")
         
     }
 

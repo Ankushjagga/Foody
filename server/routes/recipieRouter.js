@@ -11,13 +11,14 @@ router.post("/search",recipieController.searchRecipe)
 router.get('/exploreLatest', recipieController.exploreLatest);
 router.get('/exploreRandom', recipieController.exploreRandom);
 router.get('/submitRecipe',auth, recipieController.submitRecipe);
-router.post('/submitRecipe', recipieController.submitRecipeonPost);
+router.post('/submitRecipe',auth , recipieController.submitRecipeonPost);
 router.get('/contact', auth,recipieController.contact);
-router.post('/contact', recipieController.contactonPost);
+router.post('/contact', auth,recipieController.contactonPost);
 router.get('/userDashboard', auth,recipieController.userDashboard);
 router.post("/userDashboard",recipieController.deleteRecipie)
 router.post("/EditRecipie/:id",recipieController.editRecipeonputs);
 router.get("/EditRecipie/:id",recipieController.editRecipe);
+router.post("/recipieinsert",recipieController.insertdummy);
 
 router.get('*',recipieController.errorpage);  
 

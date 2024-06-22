@@ -74,6 +74,9 @@ h1{
 #adminmenu{
   display: none ;
 }
+.message-li{
+  list-style:decimal ;
+}
 
 @media (max-width:768px){
 .navbar{
@@ -163,8 +166,23 @@ table{
     <td>
 
       <p style="text-transform: none;">
+        <ul class="message-li" >
+        {{#if messages.length}}
+{{#each messages}}
+<li>
 
-        {{message}}
+        {{text}} 
+    
+        <hr/>
+        <br>
+         {{!-- {{#unless @last}}, {{/unless}} --}}
+        
+        {{/each}}
+         {{else}}
+         N/A
+        {{/if}}
+</li>
+        </ul>
       </p>
     </td>
     

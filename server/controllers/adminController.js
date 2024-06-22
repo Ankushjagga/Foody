@@ -34,6 +34,8 @@ exports.adminonPost=async (req,res)=>{
     res.cookie("jwt",token,{
       httpOnly:true
     });
+    req.flash("infoSubmit", "welcome Admin")
+
      res.redirect("/dashboard")
     }
         
@@ -44,6 +46,9 @@ exports.adminonPost=async (req,res)=>{
         }
         }
         catch (error) {
+      
+          const errors = JSON.parse(error.message)
+          console.error("errorrr =================", errors);
         res.status(500).send({message: error.message || "Something went wrong 😩" });
       
       } 
@@ -53,8 +58,8 @@ exports.adminonPost=async (req,res)=>{
 
 exports.Dashboard= async (req,res)=>{
 try{
-const role = req.user.role; 
-console.log(role);
+// const role = req.user.role; 
+// console.log(role);
     const users = await Register.estimatedDocumentCount();
     console.log(users);
     const recipies = await  Recipe.estimatedDocumentCount();
@@ -87,7 +92,7 @@ res.render("adminUser",{data});
 }
 
 exports.contacts = async (req,res)=>{
-  const data = await Contact.find({});
+  const data = await Register.find({});
   res.render("admincontact",{data});
   }
   

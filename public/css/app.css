@@ -740,6 +740,7 @@ position: relative;
     left: 92%;
     top: 42%;
     cursor: pointer;
+    color: black;
 }
 .submitIng {
     position: absolute;
@@ -792,6 +793,10 @@ position: relative;
 flex-wrap: wrap;
 }
 
+.forgetPassword{
+    width: 100%;
+    height: 70vh;
+}
 
 @media (max-width:750px){
 .details,.loginForm{

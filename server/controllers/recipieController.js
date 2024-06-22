@@ -168,12 +168,12 @@ exports.submitRecipeonPost = async(req, res) => {
 
     const newRecipe = new Recipe({
       name: req.body.name,
+      username : req.body.username ,
       description: req.body.description,
-      email: req.body.email,
-      username: req.body.username,
       ingredients: req.body.ingredients,
       category: req.body.category,
-      image: newImageName
+      image: newImageName,
+      userId : req.user._id
 
     });
      
@@ -201,7 +201,7 @@ try {
 const token= req.cookies.jwt;
 const name= req.user.name
 const email = req.user.email
-
+console.log(req.user);
   res.render('contact',{title:"contactUs",mess,token, name, email})
 
 } catch (error) {
@@ -216,19 +216,25 @@ const email = req.user.email
 exports.contactonPost = async(req,res)=>{
   try {
     
-const data = new Contact({
-  name:req.body.name,
-  email:req.body.email,
-  message:req.body.message
-})
+// const data = new Contact({
+//   name:req.body.name,
+//   email:req.body.email,
+//   message:req.body.message
+// })
 
-await data.save()
+const {message} = req.body;
+const newMessage = await req.user.addMessage(message);
+console.log(newMessage);
+
+// await data.save()
 req.flash("mess","Message sent sucessfully 😄")
-res.redirect("/contact");
+return res.redirect("/contact");
   } catch (error) {
-  
+  console.log(error);
+  console.log(req.user);
       res.status(500);
-      req.flash(send("mess",{message: error.message || "Something went wrong 😩" }))
+      req.flash(("mess",{message: error.message || "Something went wrong 😩" }))
+      return res.status(500).redirect("/contact"); 
   }
 }
 
@@ -237,10 +243,11 @@ exports.userDashboard = async (req,res)=>{
 
   try {
     const data = req.user;
-    const recipe = await Recipe.find({email:data.email});
-    const msg = await contact.find({email:data.email});
-
-    console.log(msg); 
+    const recipe = await Recipe.find({userId:data._id});
+    console.log(recipe.name + "recipei");
+    const msg = await register.find({_id:data._id});
+   
+    // console.log(msg.messages); 
     const infoError = req.flash('infoError');
     const infoSubmits = req.flash('infoSubmits');
 const token= req.cookies.jwt;
@@ -327,9 +334,36 @@ const token= req.cookies.jwt;
   } 
 
 
+  exports.insertdummy = async (req,res)=>{
+       try {
+        
+       
+  const newR =   new Recipe(
+               
+        { 
+                    "name": "Kaju Katli | Kaju Barfi",
+                    "description": `Perfect Kaju Katli is a traditional Indian cashew fudge candy that’s terrifically smooth, thin, and melts in your mouth. This lovely treat includes a hint of rose but is completely customizable with your favorite flavors. And while it’s not the easiest recipe to make from scratch, I promise it’s worth every bit of effort! My step-by-step photos, video and instructions will help you make this foolproof kaju katli recipe as a dessert for yourself or a sweet gift for family and friends.`,
+                    "ingredients": [
+                      "1 cup cashews – 160 grams",
+                      "½ cup sugar – 100 grams sugar",
+                      "5 tablespoons water",
+                      "1 tablespoon Ghee or coconut oil or any neutral tasting oil (optional)",
+                      "1 teaspoon chopped rose petals or 1 teaspoon rose water or 8 to 9 strands of saffron (optional)"
+                    ],
+                    "category": "sweets",  
+                    "image": "kaju-katli.webp",
+                    "userId" : "6675acb28f2d9b0f7b72a205"
+                  },
+                )
 
+newR.save() 
+res.status(200).send("added")
+} catch (error) {
+     console.log(error);   
+}
 
-
+                }
+              
 
 
 

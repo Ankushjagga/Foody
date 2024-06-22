@@ -8,11 +8,11 @@
 </head>
 <body>
     {{>navbar}}
-	<div class="alert-msg">
+	{{!-- <div class="alert-msg">
     {{#if (isdefined show)}}
     {{show}}
     {{/if}}
-</div>
+</div> --}}
 	<div class="alert-msg-error">
     {{#if (isdefined shows)}}
     {{shows}}
@@ -30,7 +30,7 @@
 			<input type="password" placeholder="Password" class="inp" id="password"  name="password" required />
 			 <i class="fa-solid fa-eye-slash" id="input-password"></i> 
 			</span>
-			<a href="#">Forgot your password?</a>
+			<a href="/forgetPassword">Forgot your password?</a>
 			<button class="btn ghostbtn">
 				
 				

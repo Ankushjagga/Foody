@@ -3,6 +3,7 @@ require("../connection/db")
 const Register = require("../models/register")
 const bcrypt = require("bcrypt")
  
+const nodemailer  = require("nodemailer")
   /* 
       registration 
       */  
@@ -28,14 +29,21 @@ const token= req.cookies.jwt;
 
       exports.registeronPost = async (req,res)=>{
         try {
+    
+const {email , name , phoneNumber , password , cpassword } = req.body;
+
+if(!email || !name || !phoneNumber || !password || !cpassword) {
+  req.flash("tells", "Please Enter Fields Correctly !");
+  return res.redirect("/register")
+}
+
           const existingUser = await Register.findOne({email : req.body.email});
           if(existingUser) {
             req.flash("tells","Email already exists 😟 ")
            return res.redirect("/register")
            
           }
-  const password = req.body.password;
-  const cpassword=req.body.cpassword;
+
   if(password===cpassword){
     const data = new Register({
         name:req.body.name,
@@ -50,12 +58,15 @@ const token= req.cookies.jwt;
               res.cookie("jwt",token,{
                 httpOnly:true
               });
+              res.cookie("name",name,{
+                httpOnly:true
+              });
               await data.save();
               req.flash("tell",`Registration sucessfull 😄, welcome ${data.name}`)
             res.redirect("/register")
             }
 
-//  toast("")
+//  toast("") 
   
   else{
     
@@ -65,10 +76,10 @@ const token= req.cookies.jwt;
   }
   
         
-        } catch (error) {
+        } catch (errors) {
           // Handle errors
-          const errors = JSON.parse(error.message)
-          console.error("errorrr =================", errors.name);
+          // const errors = JSON.parse(error.message) 
+          console.error("errorrr =================", errors);
     if (errors.name === 'MongoServerError') {
       if (errors.code === 11000  && errors.keyPattern.phoneNumber === 1) {
         req.flash("tells", "Phone number already exists 🙄");
@@ -76,11 +87,11 @@ const token= req.cookies.jwt;
         req.flash("tells", "MongoDB Error: " + errors.message);
       }
     } 
-     else {
-      // Handle other errors
-      req.flash("tells", "Something went Wrong");
+    //  else {
+    //   // Handle other errors
+    //   req.flash("tells", "Something went Wrong");
       
-    }
+    // } 
     
     // Redirect to registration page with error flash message
     res.status(400).redirect("/register");
@@ -123,6 +134,9 @@ const token= req.cookies.jwt;
             res.cookie("jwt",token,{
               httpOnly:true
             });
+            res.cookie("name",userData.name,{
+              httpOnly:true
+            });
             // Swal.fire('Any fool can use a computer')
             req.flash("show",`Login sucessfull 😄, welcome ${userData.name} 😇` ) 
             // res.status(200).json('login sucess')
@@ -162,6 +176,7 @@ const token= req.cookies.jwt;
 
             // req.user.tokens =[]
 res.clearCookie("jwt");
+res.clearCookie("name");
 
 console.log("logout sucessful");
 // alert("Logout sucessfull 😄")
@@ -176,3 +191,123 @@ res.redirect("login")
             
           }
         }
+
+
+
+          // forgetpassword
+
+          exports.forgetPassword = async (req,res)=>{
+
+            try {
+           const findemail =  req.flash("findemail");
+         const notemailfound =  req.flash("notfindemail");
+  
+ res.status(200).render("forgetPassword",{findemail, notemailfound})
+            } catch (error) {
+            res.status(500).send({message: error.message || "Something went wrong 😩" });
+              
+            }
+          }
+
+
+
+
+               // forgetpassword
+
+               exports.forgetPasswordonPost = async (req,res)=>{
+
+                try {
+      
+                  const transporter = nodemailer.createTransport({
+                    host: "smtp.ethereal.email",
+                    port: 587,
+                    auth: {
+                      user: "imelda.hyatt95@ethereal.email",
+                      pass: "mgJrtYGMEhknWvShqe",
+                    },
+                  });
+
+ // send mail with defined transport object
+ const user = await Register.findOne({email : req.body.email});
+ if(user){
+  const info = await transporter.sendMail({
+    from: 'ankushjagga97@gmail.email>', // sender address
+    to: req.body.email, // list of receivers
+    subject: "Forget Password ✔", // Subject line
+    // text: "Foregt Password?", // plain text body
+    html: `<b>click on the link to reset password? </b> <a href=http://localhost:8000/resetPassword/${user._id}> click me</a>` // html body
+  });
+  req.flash("findemail", "Please check your email to reset passowrd")
+  console.log(info);
+  return res.redirect("/forgetPassword")
+  
+ }else{
+  req.flash("notfindemail", "email not register")
+  return res.redirect("/forgetPassword")
+
+
+ }
+
+
+
+
+
+                } catch (error) {
+                res.status(500).send({message: error.message || "Something went wrong 😩" });
+                  
+                }
+              }
+
+
+
+
+
+               // resetpasword
+
+          exports.resetPassword = async (req,res)=>{
+
+            try {
+           const findemail =  req.flash("findemail");
+         const notemailfound =  req.flash("notfindemail");
+  
+ res.status(200).render("resetPassword",{findemail, notemailfound})
+            } catch (error) {
+            res.status(500).send({message: error.message || "Something went wrong 😩" });
+              
+            }
+          }
+
+
+
+
+          
+               // resetpasword
+
+               exports.resetPasswordonPut = async (req,res)=>{
+
+                try {
+const user = await Register.findOne({_id: req.params.id});
+const {password , cpassword} = req.body;
+if(!password || !cpassword){
+  req.flash("notfindemail", "pelase Enter fields correctly");
+  return res.redirect(`/resetPassword/${user._id}`)
+}
+const passwordhash = await bcrypt.hash(password, 10)
+const cpasswordhash = await bcrypt.hash(cpassword, 10)
+
+const reset = await Register.updateOne({_id: req.params.id}, {password: passwordhash , cpassword : cpasswordhash})
+
+const findemail =  req.flash("findemail", "password updated sucessfully");
+return res.redirect(`/resetPassword/${user._id}`)
+
+
+
+
+
+               
+              } catch (error) {
+                const notemailfound =  req.flash("notfindemail", "password not updated");
+                res.status(500).send({message: error.message || "Something went wrong 😩" });
+                  
+                }
+              }

@@ -23,7 +23,8 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.3"
+    "mongoose": "^6.5.3",
+    "nodemailer": "^6.9.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

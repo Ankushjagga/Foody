@@ -36,27 +36,36 @@ required:[true,"this field is required"],
             enum: ['user', 'admin'], // Example roles
             default: 'user' // Default role
         },
-      
-        tokens:[
-            {
+        messages : [{
 
-                token:{
-             type:String,
-            //  required:true       
-                }
-            }
+            text :  {
+                type : String 
+                
+            },
+          
+        }
         ]
+      
+        // tokens:[
+        //     {
+
+        //         token:{
+        //      type:String,
+        //     //  required:true       
+        //         }
+        //     }
+        // ]
 
     
 })
-
+ 
 registerSchema.methods.generateAuthToken = async function(req,res){
 
     try {
         
         const token = await jwt.sign({_id:this._id.toString()},process.env.SECRETE_KEY)
-        this.tokens = this.tokens.concat({token:token})
-        await this.save();
+        // this.tokens = this.tokens.concat({token:token})
+        // await this.save();
         return token
 
 
@@ -80,6 +89,23 @@ if(this.isModified("password")){
 }
 next();
 })
+
+
+registerSchema.methods.addMessage = async function(text) {
+try {
+    this.messages.push({text})
+    await this.save();
+    return this.messages[this.messages.length - 1];
+} catch (error) {
+    console.log(error);
+    throw new Error("message not added");
+    
+}
+}
+
+registerSchema.methods.getAllmessages = async function(msg){
+    return this.messages
+}
 
 const register = mongoose.model("Register",registerSchema); 
 module.exports=register
