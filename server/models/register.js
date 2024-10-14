@@ -27,7 +27,8 @@ required:[true,"this field is required"],
       phoneNumber : {
         type:String,
         required:[true,"this field is required"],
-        unique: true 
+        unique: true ,
+       
 
 
         },
@@ -72,7 +73,7 @@ registerSchema.methods.generateAuthToken = async function(req,res){
 
     } catch (error) {
         // console.log( JSON.stringify(error.keyPattern)  + error.code +  error.name + error.keyPattern.phoneNumber + "errrrrrrrrr");
-        // console.log("eoorrr---", error);
+        console.log("eoorrr---", error);
         throw new Error(JSON.stringify({name : error.name , keyPattern : error.keyPattern , code: error.code  }));
     }
 

@@ -63,7 +63,7 @@ if(!email || !name || !phoneNumber || !password || !cpassword) {
               });
               await data.save();
               req.flash("tell",`Registration sucessfull 😄, welcome ${data.name}`)
-            res.redirect("/register")
+          return  res.redirect("/register")
             }
 
 //  toast("") 
@@ -72,7 +72,7 @@ if(!email || !name || !phoneNumber || !password || !cpassword) {
     
     req.flash("tells","password doesnot match 😢")
   return res.redirect("/register");
-    res.status(400);
+
   }
   
         
@@ -83,8 +83,12 @@ if(!email || !name || !phoneNumber || !password || !cpassword) {
     if (errors.name === 'MongoServerError') {
       if (errors.code === 11000  && errors.keyPattern.phoneNumber === 1) {
         req.flash("tells", "Phone number already exists 🙄");
+ return   res.status(400).redirect("/register");
+
       } else {
         req.flash("tells", "MongoDB Error: " + errors.message);
+   return  res.status(400).redirect("/register");
+
       }
     } 
     //  else {
@@ -94,7 +98,7 @@ if(!email || !name || !phoneNumber || !password || !cpassword) {
     // } 
     
     // Redirect to registration page with error flash message
-    res.status(400).redirect("/register");
+   return  res.status(400).redirect("/register");
         }  
         }
 /* 
@@ -183,7 +187,7 @@ console.log("logout sucessful");
 req.flash("show","Logout Sucessfull 😄")
 
 
-await req.user.save();
+// await req.user.save();
 res.redirect("login")
  
           } catch (error) {
