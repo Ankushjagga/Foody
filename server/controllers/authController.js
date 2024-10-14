@@ -2,8 +2,11 @@ require("../connection/db")
 // const alert = require('alert')
 const Register = require("../models/register")
 const bcrypt = require("bcrypt")
+const _ = require("loadsh")
+const jwt = require("jsonwebtoken")
  
 const nodemailer  = require("nodemailer")
+const mailSend = require("../mail/mail")
   /* 
       registration 
       */  
@@ -222,27 +225,20 @@ res.redirect("login")
 
                 try {
       
-                  const transporter = nodemailer.createTransport({
-                    host: "smtp.ethereal.email",
-                    port: 587,
-                    auth: {
-                      user: "imelda.hyatt95@ethereal.email",
-                      pass: "mgJrtYGMEhknWvShqe",
-                    },
-                  });
+                 
 
  // send mail with defined transport object
  const user = await Register.findOne({email : req.body.email});
  if(user){
-  const info = await transporter.sendMail({
-    from: 'ankushjagga97@gmail.email>', // sender address
-    to: req.body.email, // list of receivers
-    subject: "Forget Password ✔", // Subject line
-    // text: "Foregt Password?", // plain text body
-    html: `<b>click on the link to reset password? </b> <a href=http://localhost:8000/resetPassword/${user._id}> click me</a>` // html body
+  let userToJtok = _.pick(user, ["email"])
+  let tokCandidate = Object.assign(userToJtok, {
+    expiresIn: 600,
   });
+  let token = jwt.sign(tokCandidate, process.env.SECRETE_KEY);
+  mailSend("Reset your password", `click link to resetPassword : ${process.env.API}/resetPassword/${token}`, req.body.email)
+
   req.flash("findemail", "Please check your email to reset passowrd")
-  console.log(info);
+ 
   return res.redirect("/forgetPassword")
   
  }else{
@@ -290,19 +286,24 @@ res.redirect("login")
                exports.resetPasswordonPut = async (req,res)=>{
 
                 try {
-const user = await Register.findOne({_id: req.params.id});
+        const decoded = jwt.verify(req.params.token, process.env.SECRETE_KEY);
+
+const user = await Register.findOne({email : decoded.email}); 
+if(!user){
+  req.flash("notfindemail", "Invalid token")
+}
 const {password , cpassword} = req.body;
 if(!password || !cpassword){
   req.flash("notfindemail", "pelase Enter fields correctly");
-  return res.redirect(`/resetPassword/${user._id}`)
+  return res.redirect(`/resetPassword/${req.params.token}`)
 }
 const passwordhash = await bcrypt.hash(password, 10)
 const cpasswordhash = await bcrypt.hash(cpassword, 10)
 
-const reset = await Register.updateOne({_id: req.params.id}, {password: passwordhash , cpassword : cpasswordhash})
+const reset = await Register.updateOne({email: decoded.email}, {password: passwordhash , cpassword : cpasswordhash})
 
 const findemail =  req.flash("findemail", "password updated sucessfully");
-return res.redirect(`/resetPassword/${user._id}`)
+return res.redirect(`/resetPassword/${req.params.token}`)
 
 
 

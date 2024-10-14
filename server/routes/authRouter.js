@@ -6,15 +6,15 @@ const notAuth = require("../middleware/notAuth")
 
 
 
-router.get('/login',notAuth, authController.login);
-router.get('/register', notAuth,authController.register);
+router.get('/login', authController.login);
+router.get('/register',authController.register);
 router.post('/register', authController.registeronPost);
 router.post("/login",authController.loginonPost)
 router.get("/logout",auth,authController.logout)
 router.get("/forgetPassword",authController.forgetPassword)
 router.post("/forgetPassword",authController.forgetPasswordonPost)
-router.get("/resetPassword/:id",authController.resetPassword)
-router.post("/resetPassword/:id",authController.resetPasswordonPut)
+router.get("/resetPassword/:token",authController.resetPassword)
+router.post("/resetPassword/:token",authController.resetPasswordonPut)
 
 module.exports = router;
  
